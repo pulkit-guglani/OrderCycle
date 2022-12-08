@@ -1,0 +1,11 @@
+.header {
+  height: 4em;
+  width: 100%;
+  background-color: var(--primaryColor);
+  display: flex;
+  align-items: center;
+  font-weight: 800;
+  position: sticky;
+  /* justify-content: center; */
+  padding-left: 30px;
+}
