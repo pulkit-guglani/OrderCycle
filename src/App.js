@@ -1,15 +1,21 @@
 import "./App.css";
 // import Footer from "./components/Footer";
 import Header from "./components/Header";
-import Restaurant from "./pages/Restaurant";
+import OrderStatus from "./pages/OrderStatus";
+import Restaurant from "./pages/RestaurantSelection";
+
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
-    <div>
+    <BrowserRouter>
       <Header />
-      <Restaurant />
+      <Routes>
+        <Route path="/" element={<Restaurant />} />
+        <Route path="/order/:id" element={<OrderStatus />} />
+      </Routes>
       {/* <Footer/> */}
-    </div>
+    </BrowserRouter>
   );
 }
 
