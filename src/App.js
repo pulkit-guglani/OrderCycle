@@ -6,6 +6,7 @@ import Restaurant from "./pages/RestaurantSelection";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RestaurantLandingPage from "./pages/RestaurantLandingPage";
+import OperatorPage from "./pages/OperatorPage";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           path="/restaurantLandingPage"
           element={<RestaurantLandingPage />}
         />
+        <Route path="/OperatorPage" element={<OperatorPage />} />
       </Routes>
       {/* <Footer/> */}
     </BrowserRouter>
