@@ -1,14 +1,6 @@
-import { Button, styled, Typography } from "@mui/material";
+import { Button } from "@mui/material";
 import React from "react";
-import ComboBox from "./DropdownBox";
-
-//Styled Components
-
-const Text = styled(Typography)`
-  margin-top: 10px;
-  color: #e58200;
-  cursor: pointer;
-`;
+import ComboBox from "../components/DropdownBox";
 
 const Restaurant = () => {
   return (
@@ -28,7 +20,6 @@ const Restaurant = () => {
       <Button variant="contained" style={{ marginTop: "10px" }}>
         Submit
       </Button>
-      <Text>Admin Login</Text>
     </div>
   );
 };
