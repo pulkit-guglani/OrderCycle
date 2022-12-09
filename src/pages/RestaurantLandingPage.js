@@ -2,17 +2,36 @@ import {
   Button,
   FormControl,
   Input,
+  Modal,
   TextField,
   Typography,
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { Formik, Form, useFormik } from "formik";
+import React from "react";
 import * as yup from "yup";
+import AdminLogin from "../components/AdminLogin";
 
 const RestaurantLandingPage = ({ restaurantName }) => {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const validationSchema = yup.object({
     orderID: yup.string("Enter your email").required("Email is required"),
   });
+
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 400,
+    bgcolor: "white",
+    border: "2px solid #000",
+    boxShadow: 24,
+    p: 4,
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -25,7 +44,25 @@ const RestaurantLandingPage = ({ restaurantName }) => {
   });
 
   return (
-    <Box>
+    <Box
+      style={{
+        width: "fit-content",
+        margin: "auto",
+        marginTop: "100px",
+      }}
+    >
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box>
+          <AdminLogin />
+        </Box>
+      </Modal>
+      <Typography>Enter Order ID</Typography>
+      <br></br>
       <form
         style={{
           display: "flex",
@@ -47,6 +84,14 @@ const RestaurantLandingPage = ({ restaurantName }) => {
         />
         <Button color="primary" variant="contained" type="submit">
           Submit
+        </Button>
+
+        <Button
+          style={{ float: "right", marginTop: "100px" }}
+          variant="text"
+          onClick={handleOpen}
+        >
+          Admin Login
         </Button>
       </form>
     </Box>
