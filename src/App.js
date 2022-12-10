@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import RestaurantLandingPage from "./pages/RestaurantLandingPage";
 import AdminLogin from "./components/AdminLogin";
 import OperatorPage from "./pages/OperatorPage";
+import ChefPage from "./pages/ChefPage";
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         />
         <Route path="/OperatorPage" element={<OperatorPage />} />
         <Route path="/login" element={<AdminLogin />} />
+        <Route path="/chefPage" element={<ChefPage />} />
       </Routes>
       {/* <Footer/> */}
     </BrowserRouter>
