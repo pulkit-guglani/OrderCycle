@@ -1,10 +1,16 @@
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
-import { useState } from "react";
 
-const ComboBox = ({ data = top3Films, width = 300, label = "Enter Text" }) => {
-  const [value, setValue] = useState(null);
-  console.log(value);
+const ComboBox = ({
+  data = top3Films,
+  width = 300,
+  label = "Enter Text",
+  value,
+  setValue,
+}) => {
+  const selectHandler = (e) => {
+    setValue(e.target.value);
+  };
 
   return (
     <Autocomplete
@@ -12,6 +18,8 @@ const ComboBox = ({ data = top3Films, width = 300, label = "Enter Text" }) => {
       id="combo-box"
       options={data} //props.data
       sx={{ width }} // props.width
+      // value={value}
+      onSelect={(e) => selectHandler(e)}
       renderInput={(params) => (
         <TextField {...params} label={label} value={value} />
       )} // props.label

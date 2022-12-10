@@ -1,4 +1,4 @@
-import { Box, Button, Grid, styled } from "@mui/material";
+import { Box, Button, Grid, Modal, styled, Typography } from "@mui/material";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -9,6 +9,7 @@ import Paper from "@mui/material/Paper";
 import "../styles/operatorPage.css";
 import { useState } from "react";
 import ItemsModal from "./ItemsModal";
+import QR from "../static/QR.png";
 
 // Temporary data
 function createData(order, qr, status) {
@@ -64,11 +65,26 @@ const OrderSummaryWrapper = {
   gap: "20px",
 };
 
+const CustomModal = styled(Box)`
+  padding: 20px;
+  border: 1px solid;
+  background: white;
+  width: 100%;
+  max-width: 20vw;
+  height: 100%;
+  max-height: 20vh;
+  text-align: center;
+`;
+
 const OperatorPage = () => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
   };
+
+  const [modalOpen, setModalOpen] = useState(false);
+  const handleOpen = () => setModalOpen(true);
+  const handleClose = () => setModalOpen(false);
   return (
     <Box>
       <Grid container>
@@ -104,11 +120,30 @@ const OperatorPage = () => {
                 </TableBody>
               </Table>
             </TableContainer>
-            <Button variant="contained" fullWidth>
+            <Button variant="contained" fullWidth onClick={handleOpen}>
               Submit Order
             </Button>
           </OrderSummary>
         </Grid>
+        {/* order modal  */}
+        <Modal
+          open={modalOpen}
+          onClose={handleClose}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}>
+          <CustomModal>
+            <Typography id="modal-modal-title" variant="h6" component="h2">
+              Your Order Number Is: 123
+            </Typography>
+            <Typography>Scan QR code to track status online</Typography>
+            <img src={QR} alt="qr" width={"65vw"} />
+          </CustomModal>
+        </Modal>
         {/* Order Status Sidebar */}
         <Grid
           item
