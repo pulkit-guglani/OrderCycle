@@ -18,7 +18,7 @@ const RestaurantLandingPage = ({ restaurantName }) => {
   const handleClose = () => setOpen(false);
 
   const validationSchema = yup.object({
-    orderID: yup.string("Enter your email").required("Email is required"),
+    orderId: yup.string("Enter your email").required("Order ID Required"),
   });
 
   const style = {
@@ -35,7 +35,7 @@ const RestaurantLandingPage = ({ restaurantName }) => {
 
   const formik = useFormik({
     initialValues: {
-      orderID: "",
+      orderId: "",
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -77,10 +77,10 @@ const RestaurantLandingPage = ({ restaurantName }) => {
           id="orderId"
           name="orderId"
           label="Order ID"
-          value={formik.values.email}
+          value={formik.values.orderId}
           onChange={formik.handleChange}
-          error={formik.touched.email && Boolean(formik.errors.email)}
-          helperText={formik.touched.email && formik.errors.email}
+          error={formik.touched.orderId && Boolean(formik.errors.orderId)}
+          helperText={formik.touched.orderId && formik.errors.orderId}
         />
         <Button color="primary" variant="contained" type="submit">
           Submit
