@@ -7,6 +7,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "../styles/operatorPage.css";
+import { useState } from "react";
+import ItemsModal from "./ItemsModal";
 
 // Temporary data
 function createData(order, qr, status) {
@@ -63,16 +65,23 @@ const OrderSummaryWrapper = {
 };
 
 const OperatorPage = () => {
+  const [open, setOpen] = useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
   return (
     <Box>
       <Grid container>
         <Grid item xs={9} md={9} style={OrderSummaryWrapper}>
           <h1>Generate New Order</h1>
-          <Button variant="contained">Select Items</Button>
+          <Button variant="contained" onClick={handleClickOpen}>
+            Select Items
+          </Button>
+          <ItemsModal open={open} setOpen={setOpen} />
           <OrderSummary>
             <h2>Order Summary:</h2>
             <TableContainer className="t1">
-              <Table>
+              <Table stickyHeader>
                 <TableHead>
                   <TableRow>
                     <TableCell>Items</TableCell>
