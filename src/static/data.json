@@ -60,5 +60,33 @@
         }
       ]
     }
+  ],
+
+  "auth": [
+    {
+      "id": 1,
+      "chef": "password",
+      "operator": "pass"
+    },
+    {
+      "id": 2,
+      "chef": "password",
+      "operator": "pass"
+    },
+    {
+      "id": 3,
+      "chef": "password",
+      "operator": "pass"
+    },
+    {
+      "id": 4,
+      "chef": "password",
+      "operator": "pass"
+    },
+    {
+      "id": 5,
+      "chef": "password",
+      "operator": "pass"
+    }
   ]
 }

@@ -22,9 +22,9 @@ function App() {
           path="/restaurantLandingPage/:id"
           element={<RestaurantLandingPage />}
         />
-        <Route path="/OperatorPage" element={<OperatorPage />} />
+        <Route path="/OperatorPage/:id" element={<OperatorPage />} />
         <Route path="/login" element={<AdminLogin />} />
-        <Route path="/chefPage" element={<ChefPage />} />
+        <Route path="/chefPage/:id" element={<ChefPage />} />
         <Route path="/test" element={<Test />} />
       </Routes>
       {/* <Footer/> */}

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Restaurant = () => {
   const navigate = useNavigate();
   const getData = async () => {
-    const res = await fetch(`${process.env.REACT_APP_URL}`);
+    const res = await fetch(`${process.env.REACT_APP_URL}/restaurant`);
     const data = await res.json();
     setData(data);
   };

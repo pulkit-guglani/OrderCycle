@@ -1,25 +1,38 @@
-import {
-  Button,
-  FormControl,
-  Input,
-  Modal,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Modal, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
-import { Formik, Form, useFormik } from "formik";
+import { useFormik } from "formik";
 import React from "react";
+import { useParams } from "react-router";
 import * as yup from "yup";
 import AdminLogin from "../components/AdminLogin";
+import { useNavigate } from "react-router";
 
-const RestaurantLandingPage = ({ restaurantName }) => {
+const RestaurantLandingPage = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const { id } = useParams();
+  const Navigate = useNavigate();
 
   const validationSchema = yup.object({
-    orderId: yup.string("Enter your email").required("Order ID Required"),
+    orderId: yup
+      .string("Enter your Order ID")
+      .required("Order ID Required")
+      .max(5, "Order ID cannot exceed 5 digits"),
   });
+
+  const checkOrderStatus = async (orderId, restaurantId) => {
+    const res = await fetch(`${process.env.REACT_APP_URL}/orders`);
+    const data = await res.json();
+    const restaurantData = await data.filter(
+      (item) => item.restaurantId == restaurantId
+    );
+    const finalData = await restaurantData[0].orders.filter((item) => {
+      if (item.orderId == orderId) return item.orderId;
+    });
+    if (finalData != "")
+      Navigate(`/order/${restaurantId}&${orderId}`, { state: { finalData } });
+  };
 
   const style = {
     position: "absolute",
@@ -38,8 +51,10 @@ const RestaurantLandingPage = ({ restaurantName }) => {
       orderId: "",
     },
     validationSchema: validationSchema,
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+    onSubmit: ({ orderId }) => {
+      if (orderId !== "") {
+        checkOrderStatus(orderId, id);
+      }
     },
   });
 
@@ -49,21 +64,20 @@ const RestaurantLandingPage = ({ restaurantName }) => {
         width: "fit-content",
         margin: "auto",
         marginTop: "100px",
-      }}
-    >
+      }}>
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+        aria-describedby="modal-modal-description">
         <Box>
-          <AdminLogin />
+          <AdminLogin id={id} />
         </Box>
       </Modal>
       <Typography>Enter Order ID</Typography>
       <br></br>
       <form
+        autoComplete="off"
         style={{
           display: "flex",
           flexDirection: "column",
@@ -71,8 +85,7 @@ const RestaurantLandingPage = ({ restaurantName }) => {
           justifyContent: "center",
           gap: "10px",
         }}
-        onSubmit={formik.handleSubmit}
-      >
+        onSubmit={formik.handleSubmit}>
         <TextField
           id="orderId"
           name="orderId"
@@ -89,8 +102,7 @@ const RestaurantLandingPage = ({ restaurantName }) => {
         <Button
           style={{ float: "right", marginTop: "100px" }}
           variant="text"
-          onClick={handleOpen}
-        >
+          onClick={() => handleOpen()}>
           Admin Login
         </Button>
       </form>
