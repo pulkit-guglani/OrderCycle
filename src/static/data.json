@@ -20,5 +20,45 @@
       "label": "Creamery",
       "id": 5
     }
+  ],
+  "orders": [
+    {
+      "restaurantId": 1,
+      "orders": [
+        {
+          "orderId": "3254",
+          "orderItems": [
+            { "name": "Burger", "qty": 5 },
+            { "name": "Pepsi", "qty": 5 }
+          ]
+        },
+        {
+          "orderId": "3255",
+          "orderItems": [
+            { "name": "Burger", "qty": 5 },
+            { "name": "Pepsi", "qty": 5 }
+          ]
+        }
+      ]
+    },
+    {
+      "restaurantId": 2,
+      "orders": [
+        {
+          "orderId": "3254",
+          "orderItems": [
+            { "name": "Burger", "qty": 5 },
+            { "name": "Pepsi", "qty": 5 }
+          ]
+        },
+        {
+          "orderId": "3255",
+          "orderItems": [
+            { "name": "Burger", "qty": 5 },
+            { "name": "Pepsi", "qty": 5 }
+          ]
+        }
+      ]
+    }
   ]
 }
