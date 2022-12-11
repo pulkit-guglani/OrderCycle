@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import ComboBox from "../components/DropdownBox";
+import DropDownBox from "../components/DropdownBox";
 import { useNavigate } from "react-router-dom";
 
 const Restaurant = () => {
@@ -33,7 +33,7 @@ const Restaurant = () => {
         alignItems: "center",
         marginTop: "20vh",
       }}>
-      <ComboBox
+      <DropDownBox
         data={data}
         width={400}
         label="Select Restaurant"

@@ -1,7 +1,7 @@
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 
-const ComboBox = ({
+const DropDownBox = ({
   data = top3Films,
   width = 300,
   label = "Enter Text",
@@ -18,16 +18,21 @@ const ComboBox = ({
       id="combo-box"
       options={data} //props.data
       sx={{ width }} // props.width
+      onChange={(event, newValue) => {
+        if (newValue) {
+          setValue(newValue.id);
+        } else {
+          console.log("Null value hai");
+        }
+      }}
       // value={value}
       onSelect={(e) => selectHandler(e)}
-      renderInput={(params) => (
-        <TextField {...params} label={label} value={value} />
-      )} // props.label
+      renderInput={(params) => <TextField {...params} label={label} />} // props.label
     />
   );
 };
 
-export default ComboBox;
+export default DropDownBox;
 
 const top3Films = [
   { label: "The Shawshank Redemption", year: 1994 },
