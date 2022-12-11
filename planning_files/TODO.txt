@@ -1,0 +1,14 @@
+Sahil : 
+Second Page complete
+Admin Login Func
+
+Pulkit :
+Chef Page complete
+JSON for Menu
+
+Operator pages
+
+
+Pending Task:
+Route for:
+Error Page 404
