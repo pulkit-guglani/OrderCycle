@@ -17,7 +17,7 @@ function App() {
         <Route path="/" element={<Restaurant />} />
         <Route path="/order/:id" element={<OrderStatus />} />
         <Route
-          path="/restaurantLandingPage"
+          path="/restaurantLandingPage/:id"
           element={<RestaurantLandingPage />}
         />
         <Route path="/OperatorPage" element={<OperatorPage />} />
