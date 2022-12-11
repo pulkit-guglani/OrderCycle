@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
-import ComboBox from "./DropdownBox";
+import DropDownBox from "./DropdownBox";
 import { Input, InputLabel, MenuItem, Select, TextField } from "@mui/material";
 
 const style = {
@@ -30,7 +30,7 @@ export default function AdminLogin() {
       <Typography id="modal-modal-title" variant="h6" component="h5">
         Admin Login
       </Typography>
-      <ComboBox data={["Chef", "Operator"]} label="Chef/Operator" />
+      <DropDownBox data={["Chef", "Operator"]} label="Chef/Operator" />
       <TextField label="Password" type={"password"}></TextField>
       <Button color="primary" variant="contained" type="submit">
         Submit
