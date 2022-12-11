@@ -2,153 +2,23 @@
   "restaurant": [
     {
       "label": "Cheesecake Factory",
-      "cuisine": "American",
       "id": 1
     },
     {
       "label": "Shokolaat",
-      "cuisine": "American",
       "id": 2
     },
     {
       "label": "Gordon Biersch",
-      "cuisine": "American",
       "id": 3
     },
     {
       "label": "Crepevine",
-      "cuisine": "American",
       "id": 4
     },
     {
       "label": "Creamery",
-      "cuisine": "American",
       "id": 5
-    },
-    {
-      "label": "Old Pro",
-      "cuisine": "American",
-      "id": 6
-    },
-    {
-      "label": "Nola\"s",
-      "cuisine": "Cajun",
-      "id": 7
-    },
-    {
-      "label": "House of Bagels",
-      "cuisine": "Bagels",
-      "id": 8
-    },
-    {
-      "label": "The Prolific Oven",
-      "cuisine": "Sandwiches",
-      "id": 9
-    },
-    {
-      "label": "La Strada",
-      "cuisine": "Italian",
-      "id": 10
-    },
-    {
-      "label": "Buca di Beppo",
-      "cuisine": "Italian",
-      "id": 11
-    },
-    {
-      "label": "Pasta?",
-      "cuisine": "Italian",
-      "id": 12
-    },
-    {
-      "label": "Madame Tam",
-      "cuisine": "Asian",
-      "id": 13
-    },
-    {
-      "label": "Sprout Cafe",
-      "cuisine": "Salad",
-      "id": 14
-    },
-    {
-      "label": "Pluto\"s",
-      "cuisine": "Salad",
-      "id": 15
-    },
-    {
-      "label": "Junoon",
-      "cuisine": "Indian",
-      "id": 16
-    },
-    {
-      "label": "Bistro Maxine",
-      "cuisine": "French",
-      "id": 17
-    },
-    {
-      "label": "Three Seasons",
-      "cuisine": "Vietlabelse",
-      "id": 18
-    },
-    {
-      "label": "Sancho\"s Taquira",
-      "cuisine": "Mexican",
-      "id": 19
-    },
-    {
-      "label": "Reposado",
-      "cuisine": "Mexican",
-      "id": 20
-    },
-    {
-      "label": "Siam Royal",
-      "cuisine": "Thai",
-      "id": 21
-    },
-    {
-      "label": "Krung Siam",
-      "cuisine": "Thai",
-      "id": 22
-    },
-    {
-      "label": "Thaiphoon",
-      "cuisine": "Thai",
-      "id": 23
-    },
-    {
-      "label": "Tamarine",
-      "cuisine": "Vietlabelse",
-      "id": 24
-    },
-    {
-      "label": "Joya",
-      "cuisine": "Tapas",
-      "id": 25
-    },
-    {
-      "label": "Jing Jing",
-      "cuisine": "Chinese",
-      "id": 26
-    },
-    {
-      "label": "Patxi\"s Pizza",
-      "cuisine": "Pizza",
-      "id": 27
-    },
-    {
-      "label": "Evvia Estiatorio",
-      "cuisine": "Mediterranean",
-      "id": 28
-    },
-    {
-      "label": "Cafe 220",
-      "cuisine": "Mediterranean",
-      "id": 29
-    },
-    {
-      "label": "Cafe Renaissance",
-      "cuisine": "Mediterranean",
-      "id": 30
     }
   ]
 }

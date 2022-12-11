@@ -8,10 +8,6 @@ const DropDownBox = ({
   value,
   setValue,
 }) => {
-  const selectHandler = (e) => {
-    setValue(e.target.value);
-  };
-
   return (
     <Autocomplete
       disablePortal
@@ -26,7 +22,6 @@ const DropDownBox = ({
         }
       }}
       // value={value}
-      onSelect={(e) => selectHandler(e)}
       renderInput={(params) => <TextField {...params} label={label} />} // props.label
     />
   );

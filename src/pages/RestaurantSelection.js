@@ -46,7 +46,6 @@ const Restaurant = () => {
         onClick={() => submitHandler()}>
         Submit
       </Button>
-      {value}
     </div>
   );
 };
