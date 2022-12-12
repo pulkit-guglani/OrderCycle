@@ -25,7 +25,7 @@ import { borderRadius } from "@mui/system";
 export default function NestedList({ id }) {
   const [open, setOpen] = useState("");
   const [orderData, setOrderData] = useState({});
-
+  const [randomVariable, setRandomVariable] = useState("pending");
   const data = [
     {
       category: "Drinks",
@@ -50,6 +50,18 @@ export default function NestedList({ id }) {
     },
   ];
 
+  const updateData = async (event, orderId) => {
+    fetch("http://localhost:3001/orders/" + orderId, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(),
+    })
+      .then((res) => res.json())
+      .then((result) => {});
+  };
+
   useEffect(() => {
     fetch(`${process.env.REACT_APP_URL}/orders`)
       .then((res) => {
@@ -59,8 +71,6 @@ export default function NestedList({ id }) {
         const someData = data.filter((orders) => {
           return orders.restaurantId == id;
         });
-        console.log("SOME DATA");
-        console.log(someData);
         setOrderData(someData[0]);
       });
   }, []);
@@ -118,8 +128,12 @@ export default function NestedList({ id }) {
                   <RadioGroup
                     row
                     aria-labelledby="status-label"
-                    defaultValue="pending"
                     name="radio-buttons-group"
+                    value={randomVariable}
+                    onChange={(e) => {
+                      setRandomVariable(e.target.value);
+                      console.log(randomVariable);
+                    }}
                   >
                     <FormControlLabel
                       value="pending"
@@ -146,6 +160,7 @@ export default function NestedList({ id }) {
           </Collapse>
         </div>
       ))}
+      {console.log(randomVariable)}
     </List>
   );
 }

@@ -24,10 +24,10 @@ const RestaurantLandingPage = () => {
   const checkOrderStatus = async (orderId, restaurantId) => {
     const res = await fetch(`${process.env.REACT_APP_URL}/orders`);
     const data = await res.json();
-    const restaurantData = await data.filter(
+    const restaurantData = data.filter(
       (item) => item.restaurantId == restaurantId
     );
-    const finalData = await restaurantData[0].orders.filter((item) => {
+    const finalData = restaurantData[0].orders.filter((item) => {
       if (item.orderId == orderId) return item.orderId;
     });
     if (finalData != "")
@@ -64,12 +64,14 @@ const RestaurantLandingPage = () => {
         width: "fit-content",
         margin: "auto",
         marginTop: "100px",
-      }}>
+      }}
+    >
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
+        aria-describedby="modal-modal-description"
+      >
         <Box>
           <AdminLogin id={id} />
         </Box>
@@ -85,7 +87,8 @@ const RestaurantLandingPage = () => {
           justifyContent: "center",
           gap: "10px",
         }}
-        onSubmit={formik.handleSubmit}>
+        onSubmit={formik.handleSubmit}
+      >
         <TextField
           id="orderId"
           name="orderId"
@@ -102,7 +105,8 @@ const RestaurantLandingPage = () => {
         <Button
           style={{ float: "right", marginTop: "100px" }}
           variant="text"
-          onClick={() => handleOpen()}>
+          onClick={() => handleOpen()}
+        >
           Admin Login
         </Button>
       </form>

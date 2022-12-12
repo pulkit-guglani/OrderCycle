@@ -30,14 +30,16 @@
           "orderItems": [
             { "name": "Burger", "qty": 5 },
             { "name": "Pepsi", "qty": 5 }
-          ]
+          ],
+          "orderStatus" : "pending"
         },
         {
           "orderId": "3255",
           "orderItems": [
             { "name": "Burger", "qty": 5 },
             { "name": "Pepsi", "qty": 5 }
-          ]
+          ],
+          "orderStatus" : "cooking"
         }
       ]
     },
@@ -49,14 +51,16 @@
           "orderItems": [
             { "name": "Burger", "qty": 5 },
             { "name": "Pepsi", "qty": 5 }
-          ]
+          ],
+          "orderStatus" : "pending"
         },
         {
           "orderId": "3255",
           "orderItems": [
             { "name": "Burger", "qty": 5 },
             { "name": "Pepsi", "qty": 5 }
-          ]
+          ],
+          "orderStatus" : "pending"
         }
       ]
     }
