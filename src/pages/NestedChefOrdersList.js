@@ -16,6 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { borderRadius } from "@mui/system";
 
 // Temporary Data
 
@@ -23,10 +24,34 @@ import { useEffect, useState } from "react";
 
 export default function NestedList({ id }) {
   const [open, setOpen] = useState("");
-  const [orderData, setOrderData] = useState([]);
+  const [orderData, setOrderData] = useState({});
+
+  const data = [
+    {
+      category: "Drinks",
+      items: [
+        { name: "lemonade", price: 200, isAvailable: true },
+        { name: "mojeto", price: 240, isAvailable: true },
+      ],
+    },
+    {
+      category: "Snacks",
+      items: [
+        { name: "burger", cost: 100, availabilty: true },
+        { name: "french fries", cost: 80, availabilty: true },
+      ],
+    },
+    {
+      category: "Apetizer",
+      items: [
+        { name: "potato skins", cost: 200, availabilty: true },
+        { name: "cheese and crackers", cost: 180, availabilty: true },
+      ],
+    },
+  ];
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_URL}orders`)
+    fetch(`${process.env.REACT_APP_URL}/orders`)
       .then((res) => {
         return res.json();
       })
@@ -34,11 +59,11 @@ export default function NestedList({ id }) {
         const someData = data.filter((orders) => {
           return orders.restaurantId == id;
         });
-        setOrderData(someData);
+        console.log("SOME DATA");
+        console.log(someData);
+        setOrderData(someData[0]);
       });
   }, []);
-
-  console.log(orderData);
 
   const handleClick = (e) => {
     if (e === open) {
@@ -48,40 +73,44 @@ export default function NestedList({ id }) {
     }
   };
 
-  return (
+  return !orderData.orders ? null : (
     <List
       sx={{ width: "100%", maxWidth: 400, bgcolor: "background.paper" }}
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
-      {orderData.map((item) => (
+      {console.log(orderData.orders)}
+      {orderData.orders.map((order) => (
         <div style={{ padding: "5px" }}>
           <ListItemButton
-            style={{ border: "solid", minWidth: "400px" }}
-            onClick={() => handleClick(item.orderNumber)}
+            style={{ border: "solid", minWidth: "400px", borderRadius: "2vh" }}
+            onClick={() => handleClick(order.orderId)}
           >
-            <ListItemText primary={item.orderNumber} />
-            {open === item.orderNumber ? <ExpandLess /> : <ExpandMore />}
+            <ListItemText primary={order.orderId} />
+            {open === order.orderId ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
-          {item.items.map((itm) => (
-            <Collapse
-              in={item.orderNumber === open}
-              timeout="auto"
-              unmountOnExit
-            >
+          {order.orderItems.map((itm) => (
+            <Collapse in={order.orderId === open} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItem sx={{ pl: 4 }}>
                   <ListItemText primary={itm.name} />
-                  <Button>-</Button>
-                  <Typography>0</Typography>
-                  <Button>+</Button>
+
+                  <Typography>Qty: </Typography>
+                  <Typography sx={{ ml: "1vh" }}>{itm.qty}</Typography>
                 </ListItem>
               </List>
             </Collapse>
           ))}
-          <Collapse in={item.orderNumber === open} timeout="auto" unmountOnExit>
+          <Collapse in={order.orderId === open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
-              <ListItem sx={{ p: 2, border: "solid", borderColor: "gray" }}>
+              <ListItem
+                sx={{
+                  p: 2,
+                  border: "solid",
+                  borderColor: "gray",
+                  borderRadius: "2vh",
+                }}
+              >
                 <Typography marginTop="25px" marginRight="10px">
                   Status:
                 </Typography>
