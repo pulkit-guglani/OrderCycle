@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import DropDownBox from "../components/DropdownBox";
 import { useNavigate } from "react-router-dom";
@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 const Restaurant = () => {
   const navigate = useNavigate();
   const getData = async () => {
-    const res = await fetch(`${process.env.REACT_APP_URL}`);
+    const res = await fetch(`${process.env.REACT_APP_URL}/restaurant`);
     const data = await res.json();
     setData(data);
   };
@@ -32,7 +32,9 @@ const Restaurant = () => {
         justifyContent: "center",
         alignItems: "center",
         marginTop: "20vh",
-      }}>
+      }}
+    >
+      <Typography sx={{ alignSelf: "center" }}>Select Restaurant</Typography>
       <DropDownBox
         data={data}
         width={400}
@@ -43,7 +45,8 @@ const Restaurant = () => {
       <Button
         variant="contained"
         style={{ marginTop: "10px" }}
-        onClick={() => submitHandler()}>
+        onClick={() => submitHandler()}
+      >
         Submit
       </Button>
     </div>

@@ -1,7 +1,10 @@
 import { Box, Typography } from "@mui/material";
+import { useParams } from "react-router-dom";
 import NestedChefOrdersList from "./NestedChefOrdersList";
 
 export default function ChefPage() {
+  const { id } = useParams();
+
   return (
     <Box
       style={{
@@ -11,7 +14,7 @@ export default function ChefPage() {
       }}
     >
       <Typography>Current Orders</Typography>
-      <NestedChefOrdersList />
+      <NestedChefOrdersList id={id} />
     </Box>
   );
 }

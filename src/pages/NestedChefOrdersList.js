@@ -15,28 +15,30 @@ import {
   RadioGroup,
   Typography,
 } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Temporary Data
-const data = [
-  {
-    orderNumber: "56545",
-    items: [{ name: "burger" }, { name: "mojito" }],
-  },
-  {
-    orderNumber: "53445",
-    items: [{ name: "lemonade" }, { name: "french fries" }],
-  },
-  {
-    orderNumber: "544445",
-    items: [{ name: "potato skins" }, { name: "small beer" }],
-  },
-];
 
 // Temporary Data Ends here
 
-export default function NestedList() {
+export default function NestedList({ id }) {
   const [open, setOpen] = useState("");
+  const [orderData, setOrderData] = useState([]);
+
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_URL}orders`)
+      .then((res) => {
+        return res.json();
+      })
+      .then((data) => {
+        const someData = data.filter((orders) => {
+          return orders.restaurantId == id;
+        });
+        setOrderData(someData);
+      });
+  }, []);
+
+  console.log(orderData);
 
   const handleClick = (e) => {
     if (e === open) {
@@ -52,7 +54,7 @@ export default function NestedList() {
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
-      {data.map((item) => (
+      {orderData.map((item) => (
         <div style={{ padding: "5px" }}>
           <ListItemButton
             style={{ border: "solid", minWidth: "400px" }}
