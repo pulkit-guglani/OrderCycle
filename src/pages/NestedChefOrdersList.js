@@ -26,29 +26,6 @@ export default function NestedList({ id }) {
   const [open, setOpen] = useState("");
   const [orderData, setOrderData] = useState({});
   const [randomVariable, setRandomVariable] = useState("pending");
-  const data = [
-    {
-      category: "Drinks",
-      items: [
-        { name: "lemonade", price: 200, isAvailable: true },
-        { name: "mojeto", price: 240, isAvailable: true },
-      ],
-    },
-    {
-      category: "Snacks",
-      items: [
-        { name: "burger", cost: 100, availabilty: true },
-        { name: "french fries", cost: 80, availabilty: true },
-      ],
-    },
-    {
-      category: "Apetizer",
-      items: [
-        { name: "potato skins", cost: 200, availabilty: true },
-        { name: "cheese and crackers", cost: 180, availabilty: true },
-      ],
-    },
-  ];
 
   const updateData = async (event, orderId) => {
     fetch("http://localhost:3001/orders/" + orderId, {
