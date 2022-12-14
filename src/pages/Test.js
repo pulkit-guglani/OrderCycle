@@ -4,29 +4,27 @@ import Autocomplete from "@mui/material/Autocomplete";
 
 const options = ["Option 1", "Option 2"];
 
-export default function ControllableStates() {
-  const [value, setValue] = React.useState(options[0]);
-  const [inputValue, setInputValue] = React.useState("");
+export default function Test() {
+  const updateData = async (orderId) => {
+    let item = { orderStatus: "Ready" };
+    fetch("http://localhost:3001/orders/", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(),
+    })
+      .then((res) => res.json(item))
+      .then((result) => {});
+  };
 
   return (
-    <div>
-      <div>{`value: ${value !== null ? `'${value}'` : "null"}`}</div>
-      <div>{`inputValue: '${inputValue}'`}</div>
-      <br />
-      <Autocomplete
-        value={value}
-        onChange={(event, newValue) => {
-          setValue(newValue);
-        }}
-        inputValue={inputValue}
-        onInputChange={(event, newInputValue) => {
-          setInputValue(newInputValue);
-        }}
-        id="controllable-states-demo"
-        options={options}
-        sx={{ width: 300 }}
-        renderInput={(params) => <TextField {...params} label="Controllable" />}
-      />
-    </div>
+    <button
+      onClick={() => {
+        updateData(2);
+      }}
+    >
+      Update data
+    </button>
   );
 }

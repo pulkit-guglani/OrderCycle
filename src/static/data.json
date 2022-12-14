@@ -31,7 +31,7 @@
             { "name": "Burger", "qty": 5 },
             { "name": "Pepsi", "qty": 5 }
           ],
-          "orderStatus" : "pending"
+          "orderStatus": "pending"
         },
         {
           "orderId": "3255",
@@ -39,7 +39,7 @@
             { "name": "Burger", "qty": 5 },
             { "name": "Pepsi", "qty": 5 }
           ],
-          "orderStatus" : "cooking"
+          "orderStatus": "cooking"
         }
       ]
     },
@@ -52,7 +52,7 @@
             { "name": "Burger", "qty": 5 },
             { "name": "Pepsi", "qty": 5 }
           ],
-          "orderStatus" : "pending"
+          "orderStatus": "pending"
         },
         {
           "orderId": "3255",
@@ -60,7 +60,7 @@
             { "name": "Burger", "qty": 5 },
             { "name": "Pepsi", "qty": 5 }
           ],
-          "orderStatus" : "pending"
+          "orderStatus": "pending"
         }
       ]
     }
@@ -91,6 +91,159 @@
       "id": 5,
       "chef": "password",
       "operator": "pass"
+    }
+  ],
+
+  "menu": [
+    {
+      "restaurantId": 1,
+      "menuitems": [
+        {
+          "category": "Drinks",
+          "items": [
+            {
+              "name": "cola",
+              "price": 50
+            },
+            {
+              "name": "wine",
+              "price": 200
+            },
+            {
+              "name": "lemonade",
+              "price": 100
+            }
+          ]
+        },
+        {
+          "category": "Snacks",
+          "items": [
+            {
+              "name": "french fries",
+              "price": 50
+            },
+            {
+              "name": "cheese burger",
+              "price": 100
+            },
+            {
+              "name": "extra veggie burger",
+              "price": 200
+            }
+          ]
+        },
+        {
+          "category": "Dessert",
+          "items": [
+            {
+              "name": "choco lava cake",
+              "price": 50
+            },
+            {
+              "name": "cup cake",
+              "price": 100
+            },
+            {
+              "name": "extra veggie burger",
+              "price": 200
+            }
+          ]
+        },
+        {
+          "category": "Dippings",
+          "items": [
+            {
+              "name": "cheese",
+              "price": 40
+            },
+            {
+              "name": "avocado ranch",
+              "price": 30
+            },
+            {
+              "name": "mariana",
+              "price": 30
+            },
+            {
+              "name": "chipotle",
+              "price": 30
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "restaurantId": 1,
+      "menuitems": [
+        {
+          "category": "Drinks",
+          "items": [
+            {
+              "name": "cola",
+              "price": 50
+            },
+            {
+              "name": "sprite",
+              "price": 50
+            },
+            {
+              "name": "ice tea",
+              "price": 100
+            }
+          ]
+        },
+        {
+          "category": "Snacks",
+          "items": [
+            {
+              "name": "french fries",
+              "price": 50
+            },
+            {
+              "name": "paneer burger",
+              "price": 100
+            },
+            {
+              "name": "extra veggie burger",
+              "price": 200
+            }
+          ]
+        },
+        {
+          "category": "Dessert",
+          "items": [
+            {
+              "name": "choco lava cake",
+              "price": 50
+            },
+            {
+              "name": "mini cake",
+              "price": 100
+            },
+            {
+              "name": "extra veggie burger",
+              "price": 200
+            }
+          ]
+        },
+        {
+          "category": "Dippings",
+          "items": [
+            {
+              "name": "cheese",
+              "price": 40
+            },
+            {
+              "name": "avocado ranch",
+              "price": 30
+            },
+            {
+              "name": "mariana",
+              "price": 30
+            }
+          ]
+        }
+      ]
     }
   ]
 }
