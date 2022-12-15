@@ -86,40 +86,47 @@ const OperatorPage = () => {
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [data, setData] = useState([]);
+  const [currentOrder, setCurrentOrder] = useState();
   const handleClickOpen = () => setOpen(true);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
+
   let map = new Map();
   const [qty, setQty] = useState(map);
   const { id } = useParams();
-
   const SubmitData = async () => {
-    const data = await getData(`orders?restaurantId=${id}`);
+    const data = await getData(`orders/${id}`);
+    updateCurrentOrderObject();
+    // let order = {};
+    // order.orderId = "43";
+    // order.orderStatus = "pending";
+    // order.orderItems = json;
+    data.orders.push(currentOrder);
+    // setCurrentOrder(data);
+    // console.log(data);
+    // const result = await setServerData(`orders/${id}`, data);
+    // console.log(result);
+  };
 
+  const updateCurrentOrderObject = () => {
     const json = mapToJSON(qty);
     let order = {};
     order.orderId = "43";
     order.orderStatus = "pending";
     order.orderItems = json;
-    data[0].orders.push(order);
-    console.log(data[0]);
-    const result = await setServerData(`orders?restaurantId=${id}`, data[0]);
-    console.log(result);
+    setCurrentOrder(order);
   };
 
-  const outdatedGetData = async () => {
+  const getMenuData = async () => {
     try {
-      const res = await fetch(
-        `${process.env.REACT_APP_URL}/menu?restaurantId=${id}`
-      );
-      const data = await res.json();
-      setData(data[0].menuitems);
+      const data = await getData(`menu/${id}`);
+      setData(data.menuitems);
     } catch (error) {
       console.log(error.message);
     }
   };
   useEffect(() => {
-    outdatedGetData();
+    getMenuData();
   }, []);
   return (
     <Box>
@@ -148,11 +155,11 @@ const OperatorPage = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {billsummary.map((data) => (
+                  {currentOrder?.orderItems?.map((data) => (
                     <TableRow>
-                      <TableCell align="left">{data.item}</TableCell>
+                      <TableCell align="left">{data.name}</TableCell>
                       <TableCell>{data.qty}</TableCell>
-                      <TableCell>{data.bill}</TableCell>
+                      {/* <TableCell>{data.price}</TableCell> */}
                     </TableRow>
                   ))}
                   <TableRow>
@@ -177,8 +184,7 @@ const OperatorPage = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-          }}
-        >
+          }}>
           <CustomModal>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Your Order Number Is: 123
@@ -193,8 +199,7 @@ const OperatorPage = () => {
           xs={3}
           md={3}
           height={"90vh"}
-          style={{ borderLeft: "1px solid black" }}
-        >
+          style={{ borderLeft: "1px solid black" }}>
           <Box>
             <h2>Order Status</h2>
             <Box>
@@ -214,8 +219,7 @@ const OperatorPage = () => {
                         key={row.order}
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
+                        }}>
                         <TableCell component="th" scope="row">
                           {row.order}
                         </TableCell>

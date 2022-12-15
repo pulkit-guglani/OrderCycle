@@ -6,6 +6,7 @@ import { useParams } from "react-router";
 import * as yup from "yup";
 import AdminLogin from "../components/AdminLogin";
 import { useNavigate } from "react-router";
+import { getData } from "../components/functions";
 
 const RestaurantLandingPage = () => {
   const [open, setOpen] = React.useState(false);
@@ -22,14 +23,12 @@ const RestaurantLandingPage = () => {
   });
 
   const checkOrderStatus = async (orderId, restaurantId) => {
-    const res = await fetch(`${process.env.REACT_APP_URL}/orders`);
-    const data = await res.json();
-    const restaurantData = data.filter(
-      (item) => item.restaurantId == restaurantId
-    );
-    const finalData = restaurantData[0].orders.filter((item) => {
+    const restaurantData = await getData(`orders/${restaurantId}`);
+    console.log(restaurantData);
+    const finalData = restaurantData.orders.filter((item) => {
       if (item.orderId == orderId) return item.orderId;
     });
+
     if (finalData != "")
       Navigate(`/order/${restaurantId}&${orderId}`, { state: { finalData } });
     else {

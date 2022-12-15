@@ -97,7 +97,10 @@ export default function NestedList({ data, qty, setQty }) {
                 unmountOnExit>
                 <List component="div" disablePadding>
                   <ListItem sx={{ pl: 4 }}>
-                    <ListItemText primary={itm.name} />
+                    <ListItemText
+                      primary={itm.name}
+                      secondary={`₹ ${itm.price}`}
+                    />
                     <Button
                       onClick={() => {
                         decrementHandler(itm.name);

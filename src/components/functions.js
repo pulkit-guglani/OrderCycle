@@ -11,11 +11,11 @@ export const getData = async (path) => {
 export const setData = async (path, data) => {
   try {
     const res = await fetch(`${process.env.REACT_APP_URL}/${path}`, {
-      method: "POST",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
-      body: "JSON.stringify(data)",
+      body: JSON.stringify(data),
     });
   } catch (error) {
     return error.message;
