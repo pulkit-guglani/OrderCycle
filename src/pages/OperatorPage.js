@@ -83,44 +83,55 @@ const CustomModal = styled(Box)`
 `;
 
 const OperatorPage = () => {
-  const [open, setOpen] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [data, setData] = useState([]);
+  const [openMenuItemsList, setOpenMenuItemsList] = useState(false);
+  const [openOrderConfirmationModal, setOpenOrderConfirmationModal] =
+    useState(false);
+  const [menuData, setMenuData] = useState([]);
   const [currentOrder, setCurrentOrder] = useState();
-  const handleClickOpen = () => setOpen(true);
-  const handleOpen = () => setModalOpen(true);
-  const handleClose = () => setModalOpen(false);
+  const openMenuList = () => setOpenMenuItemsList(true);
+  const closeOrderConfirmationModal = () =>
+    setOpenOrderConfirmationModal(false);
 
-  let map = new Map();
-  const [qty, setQty] = useState(map);
+  const [orderData, setOrderData] = useState(new Map());
   const { id } = useParams();
-  const SubmitData = async () => {
-    const data = await getData(`orders/${id}`);
+  const submitOrderData = async () => {
+    const restaurantOrdersData = await getData(`orders/${id}`);
     updateCurrentOrderObject();
-    // let order = {};
-    // order.orderId = "43";
-    // order.orderStatus = "pending";
-    // order.orderItems = json;
-    data.orders.push(currentOrder);
-    // setCurrentOrder(data);
-    // console.log(data);
-    // const result = await setServerData(`orders/${id}`, data);
-    // console.log(result);
+
+    restaurantOrdersData.orders.push(currentOrder);
+    const result = await setServerData(`orders/${id}`, restaurantOrdersData);
+    console.log(result);
   };
 
   const updateCurrentOrderObject = () => {
-    const json = mapToJSON(qty);
+    const orderJson = mapToJSON(orderData);
+
+    orderJson.map((orderItem) => {
+      menuData.forEach((category) => {
+        const menuItem = category.items.find(
+          (item) => item.name == orderItem.name
+        );
+        if (menuItem) {
+          orderItem.price = menuItem.price * orderItem.qty;
+        }
+      });
+    });
+
     let order = {};
+
     order.orderId = "43";
     order.orderStatus = "pending";
-    order.orderItems = json;
+    order.orderItems = orderJson;
+    console.log(orderJson);
+    // update each order item and add price for each item
+
     setCurrentOrder(order);
   };
 
   const getMenuData = async () => {
     try {
       const data = await getData(`menu/${id}`);
-      setData(data.menuitems);
+      setMenuData(data.menuitems);
     } catch (error) {
       console.log(error.message);
     }
@@ -133,15 +144,15 @@ const OperatorPage = () => {
       <Grid container>
         <Grid item xs={9} md={9} style={OrderSummaryWrapper}>
           <h1>Generate New Order</h1>
-          <Button variant="contained" onClick={handleClickOpen}>
+          <Button variant="contained" onClick={openMenuList}>
             Select Items
           </Button>
           <ItemsModal
-            qty={qty}
-            setQty={setQty}
-            open={open}
-            setOpen={setOpen}
-            data={data}
+            qty={orderData}
+            setQty={setOrderData}
+            open={openMenuItemsList}
+            setOpen={setOpenMenuItemsList}
+            data={menuData}
           />
           <OrderSummary>
             <h2>Order Summary:</h2>
@@ -169,22 +180,23 @@ const OperatorPage = () => {
                 </TableBody>
               </Table>
             </TableContainer>
-            <Button variant="contained" fullWidth onClick={SubmitData}>
+            <Button variant="contained" fullWidth onClick={submitOrderData}>
               Submit Order
             </Button>
           </OrderSummary>
         </Grid>
         {/* order modal  */}
         <Modal
-          open={modalOpen}
-          onClose={handleClose}
+          open={openOrderConfirmationModal}
+          onClose={closeOrderConfirmationModal}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-          }}>
+          }}
+        >
           <CustomModal>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Your Order Number Is: 123
@@ -199,7 +211,8 @@ const OperatorPage = () => {
           xs={3}
           md={3}
           height={"90vh"}
-          style={{ borderLeft: "1px solid black" }}>
+          style={{ borderLeft: "1px solid black" }}
+        >
           <Box>
             <h2>Order Status</h2>
             <Box>
@@ -219,7 +232,8 @@ const OperatorPage = () => {
                         key={row.order}
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
-                        }}>
+                        }}
+                      >
                         <TableCell component="th" scope="row">
                           {row.order}
                         </TableCell>

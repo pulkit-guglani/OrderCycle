@@ -65,6 +65,10 @@ export default function NestedList({ data, qty, setQty }) {
         const newQuantity = new Map([...qty]);
         newQuantity.set(name, val - 1);
         setQty(newQuantity);
+      } else if (val === 0) {
+        const newQuantity = new Map([...qty]);
+        newQuantity.delete(name);
+        setQty(newQuantity);
       }
     }
   };
@@ -82,7 +86,8 @@ export default function NestedList({ data, qty, setQty }) {
         <ListSubheader component="div" id="nested-list-subheader">
           Select Category
         </ListSubheader>
-      }>
+      }
+    >
       {data.map((item) => (
         <>
           <ListItemButton onClick={() => handleClick(item.category)}>
@@ -94,7 +99,8 @@ export default function NestedList({ data, qty, setQty }) {
               <Collapse
                 in={item.category === open}
                 timeout="auto"
-                unmountOnExit>
+                unmountOnExit
+              >
                 <List component="div" disablePadding>
                   <ListItem sx={{ pl: 4 }}>
                     <ListItemText
@@ -104,7 +110,8 @@ export default function NestedList({ data, qty, setQty }) {
                     <Button
                       onClick={() => {
                         decrementHandler(itm.name);
-                      }}>
+                      }}
+                    >
                       -
                     </Button>
                     <Typography>
@@ -113,7 +120,8 @@ export default function NestedList({ data, qty, setQty }) {
                     <Button
                       onClick={() => {
                         incrementHandler(itm.name);
-                      }}>
+                      }}
+                    >
                       +
                     </Button>
                   </ListItem>
