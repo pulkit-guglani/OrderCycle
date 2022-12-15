@@ -8,15 +8,21 @@ import Typography from "@mui/material/Typography";
 import CloseIcon from "@mui/icons-material/Close";
 import Slide from "@mui/material/Slide";
 import NestedList from "./NestedMenuItemsList";
+import { getData } from "../components/functions";
+import { useParams } from "react-router-dom";
 
 const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ItemsModal({ open, setOpen }) {
-  //   const handleClickOpen = () => {
-  //     setOpen(true);
-  //   };
+export default function ItemsModal({ open, setOpen, data }) {
+  const { id } = useParams();
+  const handleSubmit = async () => {
+    const data = await getData(`orders?restaurantId=${id}`);
+    setOpen(false);
+  };
+  let map = new Map();
+  const [qty, setQty] = React.useState(map);
 
   const handleClose = () => {
     setOpen(false);
@@ -28,16 +34,14 @@ export default function ItemsModal({ open, setOpen }) {
         fullScreen
         open={open}
         onClose={handleClose}
-        TransitionComponent={Transition}
-      >
+        TransitionComponent={Transition}>
         <AppBar sx={{ position: "relative" }}>
           <Toolbar>
             <IconButton
               edge="start"
               color="inherit"
               onClick={handleClose}
-              aria-label="close"
-            >
+              aria-label="close">
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
@@ -50,14 +54,13 @@ export default function ItemsModal({ open, setOpen }) {
               autoFocus
               color="inherit"
               variant="outlined"
-              onClick={handleClose}
-            >
+              onClick={handleSubmit}>
               Confirm
             </Button>
           </Toolbar>
         </AppBar>
         {/* list here  */}
-        <NestedList />
+        <NestedList data={data} qty={qty} setQty={setQty} />
       </Dialog>
     </div>
   );

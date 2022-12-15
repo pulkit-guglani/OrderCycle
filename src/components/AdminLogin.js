@@ -26,7 +26,7 @@ const style = {
 };
 
 export default function AdminLogin({ id }) {
-  const [value, setValue] = useState();
+  const [value, setValue] = useState("");
   const passRef = useRef();
   const navigate = useNavigate();
   const getData = async () => {
@@ -43,9 +43,8 @@ export default function AdminLogin({ id }) {
     const currentPasswords = data.filter((item) => item.id == id);
     const chef = currentPasswords[0].chef;
     const operator = currentPasswords[0].operator;
-    console.log(value);
-    //use value insted of chef
-    if ("chef" === "chef") {
+
+    if (value == "chef") {
       goToChef(chef, password);
     } else {
       goToOperator(operator, password);
@@ -53,7 +52,6 @@ export default function AdminLogin({ id }) {
   };
 
   const goToChef = (chef, password) => {
-    console.log(password);
     if (chef === password) {
       navigate(`/chefPage/${id}`);
     }

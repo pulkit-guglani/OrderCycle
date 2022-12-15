@@ -16,7 +16,7 @@ const DropDownBox = ({
       sx={{ width }} // props.width
       onChange={(event, newValue) => {
         if (newValue) {
-          setValue(newValue.id);
+          setValue(newValue);
         } else {
           console.log("Null value hai");
         }

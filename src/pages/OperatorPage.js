@@ -7,9 +7,10 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import "../styles/operatorPage.css";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ItemsModal from "./ItemsModal";
 import QR from "../static/QR.png";
+import { useParams } from "react-router-dom";
 
 // Temporary data
 function createData(order, qr, status) {
@@ -78,13 +79,26 @@ const CustomModal = styled(Box)`
 
 const OperatorPage = () => {
   const [open, setOpen] = useState(false);
-  const handleClickOpen = () => {
-    setOpen(true);
-  };
-
   const [modalOpen, setModalOpen] = useState(false);
+  const [data, setData] = useState([]);
+  const handleClickOpen = () => setOpen(true);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
+  const { id } = useParams();
+  const getData = async () => {
+    try {
+      const res = await fetch(
+        `${process.env.REACT_APP_URL}/menu?restaurantId=${id}`
+      );
+      const data = await res.json();
+      setData(data[0].menuitems);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <Box>
       <Grid container>
@@ -93,7 +107,7 @@ const OperatorPage = () => {
           <Button variant="contained" onClick={handleClickOpen}>
             Select Items
           </Button>
-          <ItemsModal open={open} setOpen={setOpen} />
+          <ItemsModal open={open} setOpen={setOpen} data={data} />
           <OrderSummary>
             <h2>Order Summary:</h2>
             <TableContainer className="t1">

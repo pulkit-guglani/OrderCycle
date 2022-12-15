@@ -16,7 +16,6 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
-import { borderRadius } from "@mui/system";
 
 // Temporary Data
 
@@ -28,15 +27,17 @@ export default function NestedList({ id }) {
   const [randomVariable, setRandomVariable] = useState("pending");
 
   const updateData = async (event, orderId) => {
-    fetch("http://localhost:3001/orders/" + orderId, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(),
-    })
-      .then((res) => res.json())
-      .then((result) => {});
+    try {
+      await fetch("http://localhost:3001/orders/" + orderId, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ orderStatus: "123" }),
+      });
+    } catch (e) {
+      console.log(e.message);
+    }
   };
 
   useEffect(() => {
@@ -64,15 +65,13 @@ export default function NestedList({ id }) {
     <List
       sx={{ width: "100%", maxWidth: 400, bgcolor: "background.paper" }}
       component="nav"
-      aria-labelledby="nested-list-subheader"
-    >
-      {console.log(orderData.orders)}
+      aria-labelledby="nested-list-subheader">
+      {/* {console.log(orderData.orders)} */}
       {orderData.orders.map((order) => (
         <div style={{ padding: "5px" }}>
           <ListItemButton
             style={{ border: "solid", minWidth: "400px", borderRadius: "2vh" }}
-            onClick={() => handleClick(order.orderId)}
-          >
+            onClick={() => handleClick(order.orderId)}>
             <ListItemText primary={order.orderId} />
             {open === order.orderId ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
@@ -96,8 +95,7 @@ export default function NestedList({ id }) {
                   border: "solid",
                   borderColor: "gray",
                   borderRadius: "2vh",
-                }}
-              >
+                }}>
                 <Typography marginTop="25px" marginRight="10px">
                   Status:
                 </Typography>
@@ -109,9 +107,9 @@ export default function NestedList({ id }) {
                     value={randomVariable}
                     onChange={(e) => {
                       setRandomVariable(e.target.value);
-                      console.log(randomVariable);
-                    }}
-                  >
+                      // console.log(order.orderId);
+                      // updateData(e, order.orderId);
+                    }}>
                     <FormControlLabel
                       value="pending"
                       control={<Radio color="error" />}
@@ -137,7 +135,7 @@ export default function NestedList({ id }) {
           </Collapse>
         </div>
       ))}
-      {console.log(randomVariable)}
+      {/* {console.log(randomVariable)} */}
     </List>
   );
 }

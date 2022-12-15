@@ -17,10 +17,10 @@ const Restaurant = () => {
   const [value, setValue] = useState("");
 
   const submitHandler = () => {
-    if (value === "") {
+    if (value.id === "") {
       alert("Restaurant select karle pehle!!!");
     } else {
-      navigate(`/restaurantLandingPage/${value}`);
+      navigate(`/restaurantLandingPage/${value.id}`);
     }
   };
 
@@ -32,8 +32,7 @@ const Restaurant = () => {
         justifyContent: "center",
         alignItems: "center",
         marginTop: "20vh",
-      }}
-    >
+      }}>
       <Typography sx={{ alignSelf: "center" }}>Select Restaurant</Typography>
       <DropDownBox
         data={data}
@@ -45,8 +44,7 @@ const Restaurant = () => {
       <Button
         variant="contained"
         style={{ marginTop: "10px" }}
-        onClick={() => submitHandler()}
-      >
+        onClick={() => submitHandler()}>
         Submit
       </Button>
     </div>

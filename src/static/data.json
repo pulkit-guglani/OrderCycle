@@ -103,15 +103,18 @@
           "items": [
             {
               "name": "cola",
-              "price": 50
+              "price": 50,
+              "isAvailable": true
             },
             {
               "name": "wine",
-              "price": 200
+              "price": 200,
+              "isAvailable": true
             },
             {
               "name": "lemonade",
-              "price": 100
+              "price": 100,
+              "isAvailable": true
             }
           ]
         },
@@ -120,15 +123,18 @@
           "items": [
             {
               "name": "french fries",
-              "price": 50
+              "price": 50,
+              "isAvailable": true
             },
             {
               "name": "cheese burger",
-              "price": 100
+              "price": 100,
+              "isAvailable": true
             },
             {
               "name": "extra veggie burger",
-              "price": 200
+              "price": 200,
+              "isAvailable": true
             }
           ]
         },
@@ -137,15 +143,18 @@
           "items": [
             {
               "name": "choco lava cake",
-              "price": 50
+              "price": 50,
+              "isAvailable": true
             },
             {
               "name": "cup cake",
-              "price": 100
+              "price": 100,
+              "isAvailable": true
             },
             {
               "name": "extra veggie burger",
-              "price": 200
+              "price": 200,
+              "isAvailable": true
             }
           ]
         },
@@ -154,41 +163,48 @@
           "items": [
             {
               "name": "cheese",
-              "price": 40
+              "price": 40,
+              "isAvailable": true
             },
             {
               "name": "avocado ranch",
-              "price": 30
+              "price": 30,
+              "isAvailable": true
             },
             {
               "name": "mariana",
-              "price": 30
+              "price": 30,
+              "isAvailable": true
             },
             {
               "name": "chipotle",
-              "price": 30
+              "price": 30,
+              "isAvailable": true
             }
           ]
         }
       ]
     },
     {
-      "restaurantId": 1,
+      "restaurantId": 2,
       "menuitems": [
         {
           "category": "Drinks",
           "items": [
             {
               "name": "cola",
-              "price": 50
+              "price": 50,
+              "isAvailable": true
             },
             {
               "name": "sprite",
-              "price": 50
+              "price": 50,
+              "isAvailable": true
             },
             {
               "name": "ice tea",
-              "price": 100
+              "price": 100,
+              "isAvailable": true
             }
           ]
         },
@@ -197,15 +213,18 @@
           "items": [
             {
               "name": "french fries",
-              "price": 50
+              "price": 50,
+              "isAvailable": true
             },
             {
               "name": "paneer burger",
-              "price": 100
+              "price": 100,
+              "isAvailable": true
             },
             {
               "name": "extra veggie burger",
-              "price": 200
+              "price": 200,
+              "isAvailable": true
             }
           ]
         },
@@ -214,15 +233,18 @@
           "items": [
             {
               "name": "choco lava cake",
-              "price": 50
+              "price": 50,
+              "isAvailable": true
             },
             {
               "name": "mini cake",
-              "price": 100
+              "price": 100,
+              "isAvailable": true
             },
             {
               "name": "extra veggie burger",
-              "price": 200
+              "price": 200,
+              "isAvailable": true
             }
           ]
         },
@@ -231,15 +253,18 @@
           "items": [
             {
               "name": "cheese",
-              "price": 40
+              "price": 40,
+              "isAvailable": true
             },
             {
               "name": "avocado ranch",
-              "price": 30
+              "price": 30,
+              "isAvailable": true
             },
             {
               "name": "mariana",
-              "price": 30
+              "price": 30,
+              "isAvailable": true
             }
           ]
         }
