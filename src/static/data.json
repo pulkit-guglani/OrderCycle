@@ -23,7 +23,7 @@
   ],
   "orders": [
     {
-      "restaurantId": 1,
+      "id": 1,
       "orders": [
         {
           "orderId": "3254",
@@ -44,7 +44,7 @@
       ]
     },
     {
-      "restaurantId": 2,
+      "id": 2,
       "orders": [
         {
           "orderId": "3254",
@@ -96,7 +96,7 @@
 
   "menu": [
     {
-      "restaurantId": 1,
+      "id": 1,
       "menuitems": [
         {
           "category": "Drinks",
@@ -186,7 +186,7 @@
       ]
     },
     {
-      "restaurantId": 2,
+      "id": 2,
       "menuitems": [
         {
           "category": "Drinks",
