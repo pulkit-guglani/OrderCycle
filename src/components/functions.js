@@ -15,9 +15,17 @@ export const setData = async (path, data) => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: "JSON.stringify(data)",
     });
   } catch (error) {
     return error.message;
   }
+};
+
+export const mapToJSON = (map) => {
+  let json = [];
+  map.forEach((value, key) => {
+    json.push({ name: key, qty: value });
+  });
+  return json;
 };

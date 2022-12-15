@@ -11,6 +11,11 @@ import { useEffect, useState } from "react";
 import ItemsModal from "./ItemsModal";
 import QR from "../static/QR.png";
 import { useParams } from "react-router-dom";
+import {
+  getData,
+  mapToJSON,
+  setData as setServerData,
+} from "../components/functions";
 
 // Temporary data
 function createData(order, qr, status) {
@@ -84,8 +89,25 @@ const OperatorPage = () => {
   const handleClickOpen = () => setOpen(true);
   const handleOpen = () => setModalOpen(true);
   const handleClose = () => setModalOpen(false);
+  let map = new Map();
+  const [qty, setQty] = useState(map);
   const { id } = useParams();
-  const getData = async () => {
+
+  const SubmitData = async () => {
+    const data = await getData(`orders?restaurantId=${id}`);
+
+    const json = mapToJSON(qty);
+    let order = {};
+    order.orderId = "43";
+    order.orderStatus = "pending";
+    order.orderItems = json;
+    data[0].orders.push(order);
+    console.log(data[0]);
+    const result = await setServerData(`orders?restaurantId=${id}`, data[0]);
+    console.log(result);
+  };
+
+  const outdatedGetData = async () => {
     try {
       const res = await fetch(
         `${process.env.REACT_APP_URL}/menu?restaurantId=${id}`
@@ -97,7 +119,7 @@ const OperatorPage = () => {
     }
   };
   useEffect(() => {
-    getData();
+    outdatedGetData();
   }, []);
   return (
     <Box>
@@ -107,7 +129,13 @@ const OperatorPage = () => {
           <Button variant="contained" onClick={handleClickOpen}>
             Select Items
           </Button>
-          <ItemsModal open={open} setOpen={setOpen} data={data} />
+          <ItemsModal
+            qty={qty}
+            setQty={setQty}
+            open={open}
+            setOpen={setOpen}
+            data={data}
+          />
           <OrderSummary>
             <h2>Order Summary:</h2>
             <TableContainer className="t1">
@@ -134,7 +162,7 @@ const OperatorPage = () => {
                 </TableBody>
               </Table>
             </TableContainer>
-            <Button variant="contained" fullWidth onClick={handleOpen}>
+            <Button variant="contained" fullWidth onClick={SubmitData}>
               Submit Order
             </Button>
           </OrderSummary>
@@ -149,7 +177,8 @@ const OperatorPage = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-          }}>
+          }}
+        >
           <CustomModal>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Your Order Number Is: 123
@@ -164,7 +193,8 @@ const OperatorPage = () => {
           xs={3}
           md={3}
           height={"90vh"}
-          style={{ borderLeft: "1px solid black" }}>
+          style={{ borderLeft: "1px solid black" }}
+        >
           <Box>
             <h2>Order Status</h2>
             <Box>
@@ -184,7 +214,8 @@ const OperatorPage = () => {
                         key={row.order}
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
-                        }}>
+                        }}
+                      >
                         <TableCell component="th" scope="row">
                           {row.order}
                         </TableCell>

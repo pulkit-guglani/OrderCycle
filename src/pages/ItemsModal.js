@@ -15,14 +15,12 @@ const Transition = React.forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
 
-export default function ItemsModal({ open, setOpen, data }) {
+export default function ItemsModal({ open, setOpen, data, qty, setQty }) {
   const { id } = useParams();
   const handleSubmit = async () => {
     const data = await getData(`orders?restaurantId=${id}`);
     setOpen(false);
   };
-  let map = new Map();
-  const [qty, setQty] = React.useState(map);
 
   const handleClose = () => {
     setOpen(false);
@@ -34,14 +32,16 @@ export default function ItemsModal({ open, setOpen, data }) {
         fullScreen
         open={open}
         onClose={handleClose}
-        TransitionComponent={Transition}>
+        TransitionComponent={Transition}
+      >
         <AppBar sx={{ position: "relative" }}>
           <Toolbar>
             <IconButton
               edge="start"
               color="inherit"
               onClick={handleClose}
-              aria-label="close">
+              aria-label="close"
+            >
               <CloseIcon />
             </IconButton>
             <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
@@ -54,7 +54,8 @@ export default function ItemsModal({ open, setOpen, data }) {
               autoFocus
               color="inherit"
               variant="outlined"
-              onClick={handleSubmit}>
+              onClick={handleSubmit}
+            >
               Confirm
             </Button>
           </Toolbar>
