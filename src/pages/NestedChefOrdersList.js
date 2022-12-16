@@ -17,10 +17,6 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 
-// Temporary Data
-
-// Temporary Data Ends here
-
 export default function NestedList({ id }) {
   const [open, setOpen] = useState("");
   const [orderData, setOrderData] = useState({});

@@ -9,33 +9,6 @@ import ExpandMore from "@mui/icons-material/ExpandMore";
 import { Button, Typography } from "@mui/material";
 import { useState } from "react";
 
-// Temporary Data
-// const dataUsed = [
-//   {
-//     category: "Drinks",
-//     items: [
-//       { name: "lemonade", price: 200, isAvailable: true },
-//       { name: "mojeto", price: 240, isAvailable: true },
-//     ],
-//   },
-//   {
-//     category: "Snacks",
-//     items: [
-//       { name: "burger", cost: 100, availabilty: true },
-//       { name: "french fries", cost: 80, availabilty: true },
-//     ],
-//   },
-//   {
-//     category: "Apetizer",
-//     items: [
-//       { name: "potato skins", cost: 200, availabilty: true },
-//       { name: "cheese and crackers", cost: 180, availabilty: true },
-//     ],
-//   },
-// ];
-
-// Temporary Data Ends here
-
 export default function NestedList({ data, qty, setQty }) {
   const [open, setOpen] = useState("");
 
@@ -86,8 +59,7 @@ export default function NestedList({ data, qty, setQty }) {
         <ListSubheader component="div" id="nested-list-subheader">
           Select Category
         </ListSubheader>
-      }
-    >
+      }>
       {data.map((item) => (
         <>
           <ListItemButton onClick={() => handleClick(item.category)}>
@@ -99,8 +71,7 @@ export default function NestedList({ data, qty, setQty }) {
               <Collapse
                 in={item.category === open}
                 timeout="auto"
-                unmountOnExit
-              >
+                unmountOnExit>
                 <List component="div" disablePadding>
                   <ListItem sx={{ pl: 4 }}>
                     <ListItemText
@@ -110,8 +81,7 @@ export default function NestedList({ data, qty, setQty }) {
                     <Button
                       onClick={() => {
                         decrementHandler(itm.name);
-                      }}
-                    >
+                      }}>
                       -
                     </Button>
                     <Typography>
@@ -120,8 +90,7 @@ export default function NestedList({ data, qty, setQty }) {
                     <Button
                       onClick={() => {
                         incrementHandler(itm.name);
-                      }}
-                    >
+                      }}>
                       +
                     </Button>
                   </ListItem>

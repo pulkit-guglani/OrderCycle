@@ -52,60 +52,6 @@
             }
           ],
           "orderStatus": "cooking"
-        },
-        {
-          "orderId": "43",
-          "orderStatus": "pending",
-          "orderItems": [
-            {
-              "name": "cola",
-              "qty": 1,
-              "price": 50
-            },
-            {
-              "name": "wine",
-              "qty": 1,
-              "price": 200
-            }
-          ]
-        },
-        {
-          "orderId": "43",
-          "orderStatus": "pending",
-          "orderItems": [
-            {
-              "name": "cola",
-              "qty": 1,
-              "price": 50
-            },
-            {
-              "name": "wine",
-              "qty": 1,
-              "price": 200
-            }
-          ]
-        },
-        null,
-        {
-          "orderId": "43",
-          "orderStatus": "pending",
-          "orderItems": [
-            {
-              "name": "cola",
-              "qty": 2,
-              "price": 100
-            },
-            {
-              "name": "lemonade",
-              "qty": 1,
-              "price": 100
-            },
-            {
-              "name": "wine",
-              "qty": 2,
-              "price": 400
-            }
-          ]
         }
       ]
     },
