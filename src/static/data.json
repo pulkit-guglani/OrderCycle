@@ -52,6 +52,38 @@
             }
           ],
           "orderStatus": "cooking"
+        },
+        {
+          "orderId": 2,
+          "orderStatus": "pending",
+          "orderItems": [
+            {
+              "name": "cola",
+              "qty": 1,
+              "price": 50
+            },
+            {
+              "name": "wine",
+              "qty": 1,
+              "price": 200
+            }
+          ]
+        },
+        {
+          "orderId": 3,
+          "orderStatus": "pending",
+          "orderItems": [
+            {
+              "name": "french fries",
+              "qty": 1,
+              "price": 50
+            },
+            {
+              "name": "cheese burger",
+              "qty": 1,
+              "price": 100
+            }
+          ]
         }
       ]
     },
@@ -291,6 +323,28 @@
           ]
         }
       ]
+    }
+  ],
+  "miscellaneousData": [
+    {
+      "id": 1,
+      "latestOrderNumber": 4
+    },
+    {
+      "id": 2,
+      "latestOrderNumber": 1
+    },
+    {
+      "id": 3,
+      "latestOrderNumber": 1
+    },
+    {
+      "id": 4,
+      "latestOrderNumber": 1
+    },
+    {
+      "id": 5,
+      "latestOrderNumber": 1
     }
   ]
 }

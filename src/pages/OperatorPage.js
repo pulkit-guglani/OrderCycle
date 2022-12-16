@@ -17,44 +17,6 @@ import {
   setData as setServerData,
 } from "../components/functions";
 
-// Temporary data
-function createData(order, qr, status) {
-  return { order, qr, status };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0),
-  createData("Ice cream sandwich", 237, 9.0),
-  createData("Eclair", 262, 16.0),
-  createData("Cupcake", 305, 3.7),
-  createData("Gingerbread", 356, 16.0),
-  {
-    order: 1245,
-    qr: "NA",
-    status: "Ready",
-  },
-];
-
-const billsummary = [
-  {
-    item: "Pastry",
-    qty: 2,
-    bill: 100,
-  },
-  { item: "Soft Drink", qty: 2, bill: 400 },
-  {
-    item: "Pastry",
-    qty: 2,
-    bill: 100,
-  },
-  {
-    item: "Pastry",
-    qty: 2,
-    bill: 100,
-  },
-];
-// Temporary data ends
-
 // Styled Components
 const OrderSummary = styled(Box)`
   border: 1px solid;
@@ -100,11 +62,13 @@ const OperatorPage = () => {
     const restaurantOrdersData = await getData(`orders/${id}`);
     restaurantOrdersData.orders.push(currentOrder);
     setServerData(`orders/${id}`, restaurantOrdersData);
+    updateLatestOrderNumber();
     updateLocalOrders();
   };
 
-  const updateCurrentOrderObject = () => {
+  const updateCurrentOrderObject = async () => {
     const orderJson = mapToJSON(orderData);
+    const orderNumber = await getLatestOrderNumber();
 
     orderJson.map((orderItem) => {
       menuData.forEach((category) => {
@@ -122,7 +86,7 @@ const OperatorPage = () => {
 
     let order = {};
 
-    order.orderId = "43";
+    order.orderId = orderNumber;
     order.orderStatus = "pending";
     order.orderItems = orderJson;
     // update each order item and add price for each item
@@ -137,14 +101,28 @@ const OperatorPage = () => {
       console.log(error.message);
     }
   };
+  const getLatestOrderNumber = async () => {
+    const response = await getData(`miscellaneousData/${id}`);
+    // console.log(response);
+    return response.latestOrderNumber;
+  };
+  const updateLatestOrderNumber = async () => {
+    const orderNumber = await getLatestOrderNumber();
+
+    const latestOrderNumberObject = {
+      id: { id },
+      latestOrderNumber: orderNumber + 1,
+    };
+    console.log(latestOrderNumberObject);
+    setServerData(`miscellaneousData/${id}`, latestOrderNumberObject);
+  };
   const getOrderData = async () => {
     const res = await getData(`orders/${id}`);
-    console.log(res);
+    // console.log(res);
     setRestaurantOrderData(res);
   };
   const updateLocalOrders = () => {
     setTimeout(() => getOrderData(), 5000);
-    // setOrderData(new Map());
     setCurrentOrder("");
     setTotalAmount(0);
   };
