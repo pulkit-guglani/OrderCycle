@@ -87,6 +87,8 @@ const OperatorPage = () => {
   const [openOrderConfirmationModal, setOpenOrderConfirmationModal] =
     useState(false);
   const [menuData, setMenuData] = useState([]);
+  const [restaurantOrderData, setRestaurantOrderData] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
   const [currentOrder, setCurrentOrder] = useState();
   const openMenuList = () => setOpenMenuItemsList(true);
   const closeOrderConfirmationModal = () =>
@@ -96,11 +98,9 @@ const OperatorPage = () => {
   const { id } = useParams();
   const submitOrderData = async () => {
     const restaurantOrdersData = await getData(`orders/${id}`);
-    updateCurrentOrderObject();
-
     restaurantOrdersData.orders.push(currentOrder);
-    const result = await setServerData(`orders/${id}`, restaurantOrdersData);
-    console.log(result);
+    setServerData(`orders/${id}`, restaurantOrdersData);
+    updateLocalOrders();
   };
 
   const updateCurrentOrderObject = () => {
@@ -112,6 +112,9 @@ const OperatorPage = () => {
           (item) => item.name == orderItem.name
         );
         if (menuItem) {
+          setTotalAmount(
+            (totalAmount) => totalAmount + menuItem.price * orderItem.qty
+          );
           orderItem.price = menuItem.price * orderItem.qty;
         }
       });
@@ -122,9 +125,7 @@ const OperatorPage = () => {
     order.orderId = "43";
     order.orderStatus = "pending";
     order.orderItems = orderJson;
-    console.log(orderJson);
     // update each order item and add price for each item
-
     setCurrentOrder(order);
   };
 
@@ -136,8 +137,20 @@ const OperatorPage = () => {
       console.log(error.message);
     }
   };
+  const getOrderData = async () => {
+    const res = await getData(`orders/${id}`);
+    console.log(res);
+    setRestaurantOrderData(res);
+  };
+  const updateLocalOrders = () => {
+    setTimeout(() => getOrderData(), 5000);
+    // setOrderData(new Map());
+    setCurrentOrder("");
+    setTotalAmount(0);
+  };
   useEffect(() => {
     getMenuData();
+    getOrderData();
   }, []);
   return (
     <Box>
@@ -153,6 +166,7 @@ const OperatorPage = () => {
             open={openMenuItemsList}
             setOpen={setOpenMenuItemsList}
             data={menuData}
+            updateCurrentOrderObject={updateCurrentOrderObject}
           />
           <OrderSummary>
             <h2>Order Summary:</h2>
@@ -170,12 +184,12 @@ const OperatorPage = () => {
                     <TableRow>
                       <TableCell align="left">{data.name}</TableCell>
                       <TableCell>{data.qty}</TableCell>
-                      {/* <TableCell>{data.price}</TableCell> */}
+                      <TableCell>{data.price}</TableCell>
                     </TableRow>
                   ))}
                   <TableRow>
                     <TableCell colSpan={2}>Total</TableCell>
-                    <TableCell>1000</TableCell>
+                    <TableCell>{totalAmount ? totalAmount : "00"}</TableCell>
                   </TableRow>
                 </TableBody>
               </Table>
@@ -195,8 +209,7 @@ const OperatorPage = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-          }}
-        >
+          }}>
           <CustomModal>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Your Order Number Is: 123
@@ -211,8 +224,7 @@ const OperatorPage = () => {
           xs={3}
           md={3}
           height={"90vh"}
-          style={{ borderLeft: "1px solid black" }}
-        >
+          style={{ borderLeft: "1px solid black" }}>
           <Box>
             <h2>Order Status</h2>
             <Box>
@@ -227,19 +239,21 @@ const OperatorPage = () => {
                     </TableRow>
                   </TableHead>
                   <TableBody>
-                    {rows.map((row) => (
+                    {restaurantOrderData.orders?.map((row) => (
                       <TableRow
-                        key={row.order}
+                        // key={row.orderID}
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
-                        }}
-                      >
-                        <TableCell component="th" scope="row">
-                          {row.order}
+                        }}>
+                        <TableCell
+                          component="th"
+                          scope="row"
+                          style={{ fontWeight: "bold" }}>
+                          {row.orderId}
                         </TableCell>
                         {/* For QR Code */}
                         {/* <TableCell align="right">{row.qr}</TableCell> */}
-                        <TableCell align="right">{row.status}</TableCell>
+                        <TableCell align="right">{row.orderStatus}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
