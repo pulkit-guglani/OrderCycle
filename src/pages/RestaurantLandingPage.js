@@ -30,7 +30,7 @@ const RestaurantLandingPage = () => {
     });
 
     if (finalData != "")
-      Navigate(`/order/${restaurantId}&${orderId}`, { state: { finalData } });
+      Navigate(`/order/${restaurantId}-${orderId}`, { state: { finalData } });
     else {
       alert("Enter correct id");
     }

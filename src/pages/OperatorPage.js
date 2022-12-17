@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import "../styles/operatorPage.css";
 import { useEffect, useState } from "react";
 import ItemsModal from "./ItemsModal";
-import QR from "../static/QR.png";
+// import QR from "../static/QR.png";
 import { useParams } from "react-router-dom";
 import {
   getData,
@@ -52,6 +52,7 @@ const OperatorPage = () => {
   const [restaurantOrderData, setRestaurantOrderData] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [currentOrder, setCurrentOrder] = useState();
+  const [currentOrderNumber, setCurrentOrderNumber] = useState(0);
   const openMenuList = () => setOpenMenuItemsList(true);
   const closeOrderConfirmationModal = () =>
     setOpenOrderConfirmationModal(false);
@@ -70,7 +71,6 @@ const OperatorPage = () => {
 
   const updateCurrentOrderObject = async () => {
     const orderJson = mapToJSON(orderData);
-    const orderNumber = await getLatestOrderNumber();
     setTotalAmount(0);
     orderJson.map((orderItem) => {
       menuData.forEach((category) => {
@@ -87,8 +87,7 @@ const OperatorPage = () => {
     });
 
     let order = {};
-
-    order.orderId = orderNumber;
+    order.orderId = currentOrderNumber;
     order.orderStatus = "pending";
     order.orderItems = orderJson;
     // update each order item and add price for each item
@@ -105,17 +104,15 @@ const OperatorPage = () => {
   };
   const getLatestOrderNumber = async () => {
     const response = await getData(`miscellaneousData/${id}`);
-    // console.log(response);
-    return response.latestOrderNumber;
+    setCurrentOrderNumber(response.latestOrderNumber);
   };
   const updateLatestOrderNumber = async () => {
-    const orderNumber = await getLatestOrderNumber();
-
+    const orderNumber = currentOrderNumber + 1;
     const latestOrderNumberObject = {
       id: { id },
-      latestOrderNumber: orderNumber + 1,
+      latestOrderNumber: orderNumber,
     };
-    console.log(latestOrderNumberObject);
+    // console.log(latestOrderNumberObject);
     setServerData(`miscellaneousData/${id}`, latestOrderNumberObject);
   };
   const getOrderData = async () => {
@@ -131,6 +128,7 @@ const OperatorPage = () => {
   useEffect(() => {
     getMenuData();
     getOrderData();
+    getLatestOrderNumber();
   }, []);
   return (
     <Box>
@@ -196,10 +194,14 @@ const OperatorPage = () => {
           }}>
           <CustomModal>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Your Order Number Is: 123
+              Your Order Number Is: {currentOrderNumber}
             </Typography>
             <Typography>Scan QR code to track status online</Typography>
-            <img src={QR} alt="qr" width={"65vw"} />
+            <img
+              src={`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_URL}/order/${id}-${currentOrderNumber}`}
+              alt="qr"
+              width={"65vw"}
+            />
           </CustomModal>
         </Modal>
         {/* Order Status Sidebar */}

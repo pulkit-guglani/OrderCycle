@@ -3,7 +3,7 @@ import { useLocation, useParams } from "react-router";
 
 const OrderStatus = ({ status = "Pending" }) => {
   const { id } = useParams();
-  const [restID, orderID] = id.split("&");
+  const [restID, orderID] = id.split("-");
   const location = useLocation();
   const data = location.state.finalData;
   console.log(data[0].orderItems);
