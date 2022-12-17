@@ -23,7 +23,7 @@ const OrderSummary = styled(Box)`
   border-radius: 10px;
   width: 40%;
   padding: 20px;
-  height: 45vh;
+  height: 53vh;
 `;
 
 const OrderSummaryWrapper = {
@@ -58,18 +58,20 @@ const OperatorPage = () => {
 
   const [orderData, setOrderData] = useState(new Map());
   const { id } = useParams();
+
   const submitOrderData = async () => {
     const restaurantOrdersData = await getData(`orders/${id}`);
     restaurantOrdersData.orders.push(currentOrder);
     setServerData(`orders/${id}`, restaurantOrdersData);
     updateLatestOrderNumber();
     updateLocalOrders();
+    setOpenOrderConfirmationModal(true);
   };
 
   const updateCurrentOrderObject = async () => {
     const orderJson = mapToJSON(orderData);
     const orderNumber = await getLatestOrderNumber();
-
+    setTotalAmount(0);
     orderJson.map((orderItem) => {
       menuData.forEach((category) => {
         const menuItem = category.items.find(
@@ -165,12 +167,16 @@ const OperatorPage = () => {
                       <TableCell>{data.price}</TableCell>
                     </TableRow>
                   ))}
-                  <TableRow>
-                    <TableCell colSpan={2}>Total</TableCell>
-                    <TableCell>{totalAmount ? totalAmount : "00"}</TableCell>
-                  </TableRow>
                 </TableBody>
               </Table>
+            </TableContainer>
+            <TableContainer fullWidth>
+              <TableBody>
+                <TableRow>
+                  <TableCell>Total</TableCell>
+                  <TableCell>{totalAmount ? totalAmount : "00"}</TableCell>
+                </TableRow>
+              </TableBody>
             </TableContainer>
             <Button variant="contained" fullWidth onClick={submitOrderData}>
               Submit Order

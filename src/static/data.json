@@ -117,6 +117,48 @@
             }
           ],
           "orderStatus": "pending"
+        },
+        {
+          "orderId": 1,
+          "orderStatus": "pending",
+          "orderItems": [
+            {
+              "name": "french fries",
+              "qty": 1,
+              "price": 50
+            },
+            {
+              "name": "paneer burger",
+              "qty": 1,
+              "price": 100
+            },
+            {
+              "name": "choco lava cake",
+              "qty": 1,
+              "price": 50
+            }
+          ]
+        },
+        {
+          "orderId": 2,
+          "orderStatus": "pending",
+          "orderItems": [
+            {
+              "name": "choco lava cake",
+              "qty": 1,
+              "price": 50
+            },
+            {
+              "name": "mini cake",
+              "qty": 1,
+              "price": 100
+            },
+            {
+              "name": "extra veggie burger",
+              "qty": 1,
+              "price": 200
+            }
+          ]
         }
       ]
     }
@@ -332,7 +374,7 @@
     },
     {
       "id": 2,
-      "latestOrderNumber": 1
+      "latestOrderNumber": 3
     },
     {
       "id": 3,

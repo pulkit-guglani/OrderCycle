@@ -3,13 +3,12 @@ import "./App.css";
 import Header from "./components/Header";
 import OrderStatus from "./pages/OrderStatus";
 import Restaurant from "./pages/RestaurantSelection";
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
 import RestaurantLandingPage from "./pages/RestaurantLandingPage";
 import AdminLogin from "./components/AdminLogin";
 import OperatorPage from "./pages/OperatorPage";
 import ChefPage from "./pages/ChefPage";
-import Test from "./pages/Test";
+import ErrorPage from "./pages/ErrorPage";
 
 function App() {
   return (
@@ -25,7 +24,7 @@ function App() {
         <Route path="/OperatorPage/:id" element={<OperatorPage />} />
         <Route path="/login" element={<AdminLogin />} />
         <Route path="/chefPage/:id" element={<ChefPage />} />
-        <Route path="/test" element={<Test />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
       {/* <Footer/> */}
     </BrowserRouter>
