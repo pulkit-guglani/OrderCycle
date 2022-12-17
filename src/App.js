@@ -9,6 +9,7 @@ import AdminLogin from "./components/AdminLogin";
 import OperatorPage from "./pages/OperatorPage";
 import ChefPage from "./pages/ChefPage";
 import ErrorPage from "./pages/ErrorPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   return (
@@ -21,9 +22,17 @@ function App() {
           path="/restaurantLandingPage/:id"
           element={<RestaurantLandingPage />}
         />
-        <Route path="/OperatorPage/:id" element={<OperatorPage />} />
+        <Route
+          path="/OperatorPage/:id"
+          element={
+            <ProtectedRoute Component={OperatorPage} pageType="Operator" />
+          }
+        />
         <Route path="/login" element={<AdminLogin />} />
-        <Route path="/chefPage/:id" element={<ChefPage />} />
+        <Route
+          path="/chefPage/:id"
+          element={<ProtectedRoute Component={ChefPage} pageType="Chef" />}
+        />
         <Route path="*" element={<ErrorPage />} />
       </Routes>
       {/* <Footer/> */}

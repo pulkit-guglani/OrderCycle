@@ -43,8 +43,7 @@ export default function AdminLogin({ id }) {
     const currentPasswords = data.filter((item) => item.id == id);
     const chef = currentPasswords[0].chef;
     const operator = currentPasswords[0].operator;
-
-    if (value == "chef") {
+    if (value == "Chef") {
       goToChef(chef, password);
     } else {
       goToOperator(operator, password);
@@ -54,11 +53,17 @@ export default function AdminLogin({ id }) {
   const goToChef = (chef, password) => {
     if (chef === password) {
       navigate(`/chefPage/${id}`);
+      const date = new Date();
+      const exp = date.setHours(24, 0, 0, 0);
+      document.cookie = `ordercycle.in=Chef${id}; SameSite=None; Secure; expires = ${exp}`;
     }
   };
   const goToOperator = (operator, password) => {
     if (operator === password) {
       navigate(`/OperatorPage/${id}`);
+      const date = new Date();
+      const exp = date.setHours(24, 0, 0, 0);
+      document.cookie = `ordercycle.in=Operator${id}; SameSite=None; Secure;expires = ${exp}`;
     }
   };
   return (
