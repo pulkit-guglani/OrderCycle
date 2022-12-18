@@ -84,6 +84,27 @@
               "price": 100
             }
           ]
+        },
+        {
+          "orderId": 4,
+          "orderStatus": "pending",
+          "orderItems": [
+            {
+              "name": "cola",
+              "qty": 1,
+              "price": 50
+            },
+            {
+              "name": "wine",
+              "qty": 2,
+              "price": 400
+            },
+            {
+              "name": "extra veggie burger",
+              "qty": 1,
+              "price": 200
+            }
+          ]
         }
       ]
     },
@@ -370,7 +391,7 @@
   "miscellaneousData": [
     {
       "id": 1,
-      "latestOrderNumber": 4
+      "latestOrderNumber": 5
     },
     {
       "id": 2,

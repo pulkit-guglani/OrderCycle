@@ -11,4 +11,7 @@ Operator pages
 
 Pending Task:
 Route for:
-Error Page 404
+Error Page 404 : Done
+Enter not working in admin login
+Context for is Logged in so that direct links won't work
+total alignment

@@ -16,14 +16,17 @@ import {
   Typography,
 } from "@mui/material";
 import { useEffect, useState } from "react";
+import { getData, setData } from "../components/functions";
 
 export default function NestedList({ id }) {
   const [open, setOpen] = useState("");
-  const [orderData, setOrderData] = useState({});
+  const [orderData, setOrderData] = useState([]);
   const [randomVariable, setRandomVariable] = useState("pending");
 
   const updateData = async (event, orderId) => {
     try {
+      const object = { id: 2 };
+
       await fetch("http://localhost:3001/orders/" + orderId, {
         method: "PUT",
         headers: {
@@ -36,17 +39,22 @@ export default function NestedList({ id }) {
     }
   };
 
+  const submitOrderData = async () => {
+    await setData(`orders/${id}`, "");
+  };
+
+  const getOrderData = async () => {
+    try {
+      const data = await getData(`orders/${id}`);
+
+      setOrderData(data.orders);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_URL}/orders`)
-      .then((res) => {
-        return res.json();
-      })
-      .then((data) => {
-        const someData = data.filter((orders) => {
-          return orders.restaurantId == id;
-        });
-        setOrderData(someData[0]);
-      });
+    getOrderData();
   }, []);
 
   const handleClick = (e) => {
@@ -57,17 +65,36 @@ export default function NestedList({ id }) {
     }
   };
 
-  return !orderData.orders ? null : (
+  const updateOrderStatus = async (orderId, orderStatus) => {
+    const tempOrderData = orderData.map((order) => {
+      if (order.orderId === orderId) {
+        order.orderStatus = orderStatus;
+      }
+      return order;
+    });
+    // tempOrderData = orderData;
+    console.log("tempOrderData");
+
+    const restaurantOrderData = { id: Number(id), orders: tempOrderData };
+    console.log(restaurantOrderData);
+    await setData(`orders/${id}`, restaurantOrderData);
+    console.log("data sent");
+    getOrderData();
+  };
+
+  return (
     <List
       sx={{ width: "100%", maxWidth: 400, bgcolor: "background.paper" }}
       component="nav"
-      aria-labelledby="nested-list-subheader">
+      aria-labelledby="nested-list-subheader"
+    >
       {/* {console.log(orderData.orders)} */}
-      {orderData.orders.map((order) => (
+      {orderData?.map((order) => (
         <div style={{ padding: "5px" }}>
           <ListItemButton
             style={{ border: "solid", minWidth: "400px", borderRadius: "2vh" }}
-            onClick={() => handleClick(order.orderId)}>
+            onClick={() => handleClick(order.orderId)}
+          >
             <ListItemText primary={order.orderId} />
             {open === order.orderId ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
@@ -91,7 +118,8 @@ export default function NestedList({ id }) {
                   border: "solid",
                   borderColor: "gray",
                   borderRadius: "2vh",
-                }}>
+                }}
+              >
                 <Typography marginTop="25px" marginRight="10px">
                   Status:
                 </Typography>
@@ -100,12 +128,12 @@ export default function NestedList({ id }) {
                     row
                     aria-labelledby="status-label"
                     name="radio-buttons-group"
-                    value={randomVariable}
+                    value={order.orderStatus}
                     onChange={(e) => {
-                      setRandomVariable(e.target.value);
-                      // console.log(order.orderId);
-                      // updateData(e, order.orderId);
-                    }}>
+                      //e.target.value
+                      updateOrderStatus(order.orderId, e.target.value);
+                    }}
+                  >
                     <FormControlLabel
                       value="pending"
                       control={<Radio color="error" />}
