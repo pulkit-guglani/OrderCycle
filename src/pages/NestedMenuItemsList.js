@@ -59,7 +59,8 @@ export default function NestedList({ data, qty, setQty }) {
         <ListSubheader component="div" id="nested-list-subheader">
           Select Category
         </ListSubheader>
-      }>
+      }
+    >
       {data.map((item) => (
         <>
           <ListItemButton onClick={() => handleClick(item.category)}>
@@ -71,7 +72,8 @@ export default function NestedList({ data, qty, setQty }) {
               <Collapse
                 in={item.category === open}
                 timeout="auto"
-                unmountOnExit>
+                unmountOnExit
+              >
                 <List component="div" disablePadding>
                   <ListItem sx={{ pl: 4 }}>
                     <ListItemText
@@ -79,18 +81,22 @@ export default function NestedList({ data, qty, setQty }) {
                       secondary={`₹ ${itm.price}`}
                     />
                     <Button
+                      sx={{ fontSize: "1.5em" }}
                       onClick={() => {
                         decrementHandler(itm.name);
-                      }}>
+                      }}
+                    >
                       -
                     </Button>
                     <Typography>
                       {qty.has(itm.name) ? qty.get(itm.name) : "0"}
                     </Typography>
                     <Button
+                      sx={{ fontSize: "1.5em" }}
                       onClick={() => {
                         incrementHandler(itm.name);
-                      }}>
+                      }}
+                    >
                       +
                     </Button>
                   </ListItem>

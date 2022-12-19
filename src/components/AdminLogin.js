@@ -68,7 +68,7 @@ export default function AdminLogin({ id }) {
   };
   return (
     <Box style={style}>
-      <Typography id="modal-modal-title" variant="h6" component="h5">
+      <Typography id="modal-modal-title" variant="h5" component="h5">
         Admin Login
       </Typography>
       <DropDownBox
@@ -81,12 +81,14 @@ export default function AdminLogin({ id }) {
         label="Password"
         type={"password"}
         sx={{ width: "300px" }}
-        inputRef={passRef}></TextField>
+        inputRef={passRef}
+      ></TextField>
       <Button
         color="primary"
         variant="contained"
         type="submit"
-        onClick={authHandler}>
+        onClick={authHandler}
+      >
         Submit
       </Button>
     </Box>

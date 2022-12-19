@@ -66,17 +66,19 @@ const RestaurantLandingPage = () => {
         width: "fit-content",
         margin: "auto",
         marginTop: "100px",
-      }}>
+      }}
+    >
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description">
+        aria-describedby="modal-modal-description"
+      >
         <Box>
           <AdminLogin id={id} />
         </Box>
       </Modal>
-      <Typography>Enter Order ID</Typography>
+      <Typography variant="h5">Enter Order ID</Typography>
       <br></br>
       <form
         autoComplete="off"
@@ -87,7 +89,8 @@ const RestaurantLandingPage = () => {
           justifyContent: "center",
           gap: "10px",
         }}
-        onSubmit={formik.handleSubmit}>
+        onSubmit={formik.handleSubmit}
+      >
         <TextField
           id="orderId"
           name="orderId"
@@ -104,7 +107,8 @@ const RestaurantLandingPage = () => {
         <Button
           style={{ float: "right", marginTop: "100px" }}
           variant="text"
-          onClick={() => handleOpen()}>
+          onClick={() => handleOpen()}
+        >
           Admin Login
         </Button>
       </form>
