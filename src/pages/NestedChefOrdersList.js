@@ -14,6 +14,7 @@ import {
   Radio,
   RadioGroup,
   Typography,
+  Box,
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getData, setData } from "../components/functions";
@@ -84,15 +85,28 @@ export default function NestedList({ id }) {
 
   return (
     <List
-      sx={{ width: "100%", maxWidth: 400, bgcolor: "background.paper" }}
+      sx={{
+        borderRadius: "20px",
+        width: "100%",
+        maxWidth: 450,
+        bgcolor: "background.paper",
+      }}
       component="nav"
       aria-labelledby="nested-list-subheader"
     >
       {/* {console.log(orderData.orders)} */}
       {orderData?.map((order) => (
-        <div style={{ padding: "5px" }}>
+        <Box
+          bgcolor={"secondary.main"}
+          sx={{ borderRadius: "20px", padding: "1px", minWidth: "400px" }}
+        >
           <ListItemButton
-            style={{ border: "solid", minWidth: "400px", borderRadius: "2vh" }}
+            color={"primary.light"}
+            sx={{
+              border: "solid",
+              borderRadius: "2vh",
+              background: "",
+            }}
             onClick={() => handleClick(order.orderId)}
           >
             <ListItemText primary={order.orderId} />
@@ -157,7 +171,7 @@ export default function NestedList({ id }) {
               </ListItem>
             </List>
           </Collapse>
-        </div>
+        </Box>
       ))}
       {/* {console.log(randomVariable)} */}
     </List>

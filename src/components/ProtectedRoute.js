@@ -20,7 +20,7 @@ const ProtectedRoute = ({ Component, pageType }) => {
   if (cookieData == validationText) {
     return <Component />;
   } else {
-    navigate(`/`);
+    navigate(`/restaurantLandingPage/${id}`);
   }
 };
 

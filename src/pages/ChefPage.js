@@ -13,7 +13,9 @@ export default function ChefPage() {
         marginTop: "100px",
       }}
     >
-      <Typography>Current Orders</Typography>
+      <Typography variant="h5" sx={{ marginBottom: "10px" }}>
+        Current Orders
+      </Typography>
       <NestedChefOrdersList id={id} />
     </Box>
   );

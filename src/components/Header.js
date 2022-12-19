@@ -1,10 +1,13 @@
-import React from 'react'
-import '../styles/header.css'
+import { Box } from "@mui/material";
+import React from "react";
+import "../styles/header.css";
 
 const Header = () => {
   return (
-    <div className='header'>Order Cycle</div>
-  )
-}
+    <Box bgcolor={"primary.light"} className="header">
+      Order Cycle
+    </Box>
+  );
+};
 
-export default Header
+export default Header;

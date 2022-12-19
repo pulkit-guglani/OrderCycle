@@ -1,7 +1,7 @@
 .header {
   height: 4em;
   max-width: 100%;
-  background-color: var(--OptionalColor2);
+  background-color: "primary";
   display: flex;
   align-items: center;
   font-weight: 800;

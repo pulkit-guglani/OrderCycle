@@ -10,31 +10,35 @@ import OperatorPage from "./pages/OperatorPage";
 import ChefPage from "./pages/ChefPage";
 import ErrorPage from "./pages/ErrorPage";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { themeOptions } from "./components/Theme";
+import { ThemeProvider } from "@mui/material";
 
 function App() {
   return (
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route path="/" element={<Restaurant />} />
-        <Route path="/order/:id" element={<OrderStatus />} />
-        <Route
-          path="/restaurantLandingPage/:id"
-          element={<RestaurantLandingPage />}
-        />
-        <Route
-          path="/OperatorPage/:id"
-          element={
-            <ProtectedRoute Component={OperatorPage} pageType="Operator" />
-          }
-        />
-        <Route path="/login" element={<AdminLogin />} />
-        <Route
-          path="/chefPage/:id"
-          element={<ProtectedRoute Component={ChefPage} pageType="Chef" />}
-        />
-        <Route path="*" element={<ErrorPage />} />
-      </Routes>
+      <ThemeProvider theme={themeOptions}>
+        <Header />
+        <Routes>
+          <Route path="/" element={<Restaurant />} />
+          <Route path="/order/:id" element={<OrderStatus />} />
+          <Route
+            path="/restaurantLandingPage/:id"
+            element={<RestaurantLandingPage />}
+          />
+          <Route
+            path="/OperatorPage/:id"
+            element={
+              <ProtectedRoute Component={OperatorPage} pageType="Operator" />
+            }
+          />
+          <Route path="/login" element={<AdminLogin />} />
+          <Route
+            path="/chefPage/:id"
+            element={<ProtectedRoute Component={ChefPage} pageType="Chef" />}
+          />
+          <Route path="*" element={<ErrorPage />} />
+        </Routes>
+      </ThemeProvider>
       {/* <Footer/> */}
     </BrowserRouter>
   );
