@@ -32,8 +32,11 @@ const Restaurant = () => {
         justifyContent: "center",
         alignItems: "center",
         marginTop: "20vh",
-      }}>
-      <Typography sx={{ alignSelf: "center" }}>Select Restaurant</Typography>
+      }}
+    >
+      <Typography variant="h5" sx={{ mb: 5, fontWeight: "bold" }}>
+        Select Restaurant
+      </Typography>
       <DropDownBox
         data={data}
         width={400}
@@ -42,9 +45,11 @@ const Restaurant = () => {
         setValue={setValue}
       />
       <Button
+        color=""
         variant="contained"
         style={{ marginTop: "10px" }}
-        onClick={() => submitHandler()}>
+        onClick={() => submitHandler()}
+      >
         Submit
       </Button>
     </div>
