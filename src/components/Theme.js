@@ -5,12 +5,12 @@ export const themeOptions = createMuiTheme({
   palette: {
     type: "light",
     primary: {
-      main: "#FFB300",
-      light: "#FFC107",
-      dark: "#FF8F00",
+      main: "#7E57C2",
+      light: "#B39DDB",
+      dark: "#512DA8",
     },
     secondary: {
-      main: "#FFDB89",
+      main: "#EDE7F6",
     },
     background: {},
   },

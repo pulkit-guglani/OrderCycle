@@ -45,7 +45,6 @@ const Restaurant = () => {
         setValue={setValue}
       />
       <Button
-        color=""
         variant="contained"
         style={{ marginTop: "10px" }}
         onClick={() => submitHandler()}
