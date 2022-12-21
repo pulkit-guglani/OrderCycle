@@ -10,7 +10,8 @@ export default function ChefPage() {
       style={{
         width: "fit-content",
         margin: "auto",
-        marginTop: "100px",
+        marginTop: "50px",
+        maxWidth: "100%",
       }}
     >
       <Typography variant="h5" sx={{ marginBottom: "10px" }}>

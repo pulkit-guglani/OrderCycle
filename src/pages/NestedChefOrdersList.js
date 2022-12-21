@@ -85,11 +85,15 @@ export default function NestedList({ id }) {
 
   return (
     <List
+      className="t1"
       sx={{
         borderRadius: "20px",
         width: "100%",
         maxWidth: 450,
         bgcolor: "background.paper",
+        overflowY: "scroll",
+        maxHeight: 300,
+        height: "100%",
       }}
       component="nav"
       aria-labelledby="nested-list-subheader"
@@ -98,14 +102,15 @@ export default function NestedList({ id }) {
       {orderData?.map((order) => (
         <Box
           bgcolor={"secondary.main"}
-          sx={{ borderRadius: "20px", padding: "1px", minWidth: "400px" }}
+          sx={{ borderRadius: "20px", padding: "2px", minWidth: "350px" }}
         >
           <ListItemButton
             color={"primary.light"}
             sx={{
-              border: "solid",
+              border: "1.75px solid #9f94be",
               borderRadius: "2vh",
               background: "",
+              mb: "4px",
             }}
             onClick={() => handleClick(order.orderId)}
           >

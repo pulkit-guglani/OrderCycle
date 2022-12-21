@@ -6,11 +6,12 @@ export const themeOptions = createMuiTheme({
     type: "light",
     primary: {
       main: "#7E57C2",
-      light: "#B39DDB",
+      light: "#a784e9",
       dark: "#512DA8",
     },
     secondary: {
       main: "#EDE7F6",
+      light: "#cbb9ed",
     },
     background: {},
   },
