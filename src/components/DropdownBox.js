@@ -8,12 +8,14 @@ const DropDownBox = ({
   value,
   setValue,
 }) => {
+  console.log(data);
   return (
     <Autocomplete
       disablePortal
       id="combo-box"
       options={data} //props.data
       sx={{ width }} // props.width
+      getOptionLabel={(option) => option.name.toString()}
       onChange={(event, newValue) => {
         if (newValue) {
           setValue(newValue);

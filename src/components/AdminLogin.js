@@ -26,45 +26,41 @@ const style = {
 };
 
 export default function AdminLogin({ id }) {
-  const [value, setValue] = useState("");
+  const [adminType, setAdminType] = useState("");
   const passRef = useRef();
   const navigate = useNavigate();
-  const getData = async () => {
-    const res = await fetch(`${process.env.REACT_APP_URL}/auth`);
-    const data = await res.json();
-    setData(data);
-  };
-  useEffect(() => {
-    getData();
-  }, []);
-  const [data, setData] = useState([]);
-  const authHandler = () => {
-    const password = passRef.current.value;
-    const currentPasswords = data.filter((item) => item.id == id);
-    const chef = currentPasswords[0].chef;
-    const operator = currentPasswords[0].operator;
-    if (value == "Chef") {
-      goToChef(chef, password);
-    } else {
-      goToOperator(operator, password);
-    }
+
+  const authenticate = async () => {
+    console.log(adminType);
+    const res = await fetch(
+      `${process.env.REACT_APP_URL}/authenticate/${id}/${adminType.name}/${passRef.current.value}`
+    );
+    const jsonData = await res.json();
+    console.log(jsonData);
+    return jsonData.result;
   };
 
-  const goToChef = (chef, password) => {
-    if (chef === password) {
-      navigate(`/chefPage/${id}`);
-      const date = new Date();
-      const exp = date.setHours(24, 0, 0, 0);
-      document.cookie = `ordercycle.in=Chef${id}; SameSite=None; Secure; expires = ${exp}`;
+  const authHandler = async () => {
+    const isAuthenticated = await authenticate();
+    console.log(isAuthenticated);
+    if (adminType.name == "Chef" && isAuthenticated) {
+      goToChef();
+    } else if (adminType.name == "Operator" && isAuthenticated) {
+      goToOperator();
     }
   };
-  const goToOperator = (operator, password) => {
-    if (operator === password) {
-      navigate(`/OperatorPage/${id}`);
-      const date = new Date();
-      const exp = date.setHours(24, 0, 0, 0);
-      document.cookie = `ordercycle.in=Operator${id}; SameSite=None; Secure;expires = ${exp}`;
-    }
+  const goToChef = () => {
+    console.log("In Chef");
+    navigate(`/chefPage/${id}`);
+    const date = new Date();
+    const exp = date.setHours(24, 0, 0, 0);
+    document.cookie = `ordercycle.in=Chef${id}; SameSite=None; Secure; expires = ${exp}`;
+  };
+  const goToOperator = () => {
+    navigate(`/OperatorPage/${id}`);
+    const date = new Date();
+    const exp = date.setHours(24, 0, 0, 0);
+    document.cookie = `ordercycle.in=Operator${id}; SameSite=None; Secure;expires = ${exp}`;
   };
   return (
     <Box style={style}>
@@ -72,10 +68,10 @@ export default function AdminLogin({ id }) {
         Admin Login
       </Typography>
       <DropDownBox
-        data={["Chef", "Operator"]}
+        data={[{ name: "Chef" }, { name: "Operator" }]}
         label="Chef/Operator"
-        value={value}
-        setValue={setValue}
+        value={adminType}
+        setValue={setAdminType}
       />
       <TextField
         label="Password"

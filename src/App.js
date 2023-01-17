@@ -20,7 +20,7 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Restaurant />} />
-          <Route path="/order/:id" element={<OrderStatus />} />
+          <Route path="/order/:resId/:id" element={<OrderStatus />} />
           <Route
             path="/restaurantLandingPage/:id"
             element={<RestaurantLandingPage />}

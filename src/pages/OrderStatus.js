@@ -1,16 +1,40 @@
 import { Box, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router";
 
 const OrderStatus = ({ status = "Pending" }) => {
-  const { id } = useParams();
-  const [restID, orderID] = id.split("-");
   const location = useLocation();
-  const data = location.state.finalData;
-  console.log(data[0].orderItems);
-  return (
+  const urlData = location.pathname.split("/");
+  const [orderData, setOrderData] = useState([]);
+  const orderId = urlData[urlData.length - 1];
+  const restaurantId = urlData[urlData.length - 2];
+  const [isLoading, setLoading] = useState(true);
+
+  const getOrderData = async () => {
+    try {
+      const data = await fetch(
+        `${process.env.REACT_APP_URL}/getOrderWithId/${restaurantId}/${orderId}`
+      );
+      const jsonData = await data.json();
+      setOrderData(jsonData);
+      setLoading(false);
+    } catch (e) {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    getOrderData();
+  }, []);
+  console.log(orderData);
+  return isLoading ? (
+    <h2>Loading...</h2>
+  ) : !orderData?.id ? (
+    <h2>Order Not Found</h2>
+  ) : (
     <>
       <Typography textAlign="center" variant="h5" mb="20px">
-        Order No: {orderID}
+        Order No: {orderData.id}
       </Typography>
       <Box
         bgcolor="primary.background.paper"
@@ -26,13 +50,13 @@ const OrderStatus = ({ status = "Pending" }) => {
       >
         <Typography>
           Items:{" "}
-          {data[0].orderItems.map((item) => (
+          {orderData?.orderItems?.map((item) => (
             <li>{item.name}</li>
           ))}
         </Typography>
         <Typography>
           <center>
-            Status: <br /> <b>{status}</b>
+            Status: <br /> <b>{orderData.orderStatus}</b>
           </center>
         </Typography>
       </Box>

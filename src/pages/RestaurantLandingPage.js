@@ -23,14 +23,7 @@ const RestaurantLandingPage = () => {
   });
 
   const checkOrderStatus = async (orderId, restaurantId) => {
-    const restaurantData = await getData(`orders/${restaurantId}`);
-    console.log(restaurantData);
-    const finalData = restaurantData.orders.filter((item) => {
-      if (item.orderId == orderId) return item.orderId;
-    });
-
-    if (finalData != "")
-      Navigate(`/order/${restaurantId}-${orderId}`, { state: { finalData } });
+    if (orderId) Navigate(`/order/${restaurantId}/${orderId}`);
     else {
       alert("Enter correct id");
     }
