@@ -4,16 +4,17 @@ import { useLocation, useParams } from "react-router";
 
 const OrderStatus = ({ status = "Pending" }) => {
   const location = useLocation();
-  const urlData = location.pathname.split("/");
+  let { resId, id } = useParams();
+  // const urlData = location.pathname.split("/");
   const [orderData, setOrderData] = useState([]);
-  const orderId = urlData[urlData.length - 1];
-  const restaurantId = urlData[urlData.length - 2];
+  // const id = urlData[urlData.length - 1];
+  // const resId = urlData[urlData.length - 2];
   const [isLoading, setLoading] = useState(true);
-
+  console.log(resId, id);
   const getOrderData = async () => {
     try {
       const data = await fetch(
-        `${process.env.REACT_APP_URL}/getOrderWithId/${restaurantId}/${orderId}`
+        `${process.env.REACT_APP_URL}/getOrderWithId/${resId}/${id}`
       );
       const jsonData = await data.json();
       setOrderData(jsonData);

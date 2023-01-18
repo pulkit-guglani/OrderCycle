@@ -19,34 +19,13 @@ import {
 import { useEffect, useState } from "react";
 import { getData, setData } from "../components/functions";
 
-export default function NestedList({ id }) {
+export default function NestedList({ resId }) {
   const [open, setOpen] = useState("");
   const [orderData, setOrderData] = useState([]);
-  const [randomVariable, setRandomVariable] = useState("pending");
-
-  const updateData = async (event, orderId) => {
-    try {
-      const object = { id: 2 };
-
-      await fetch("http://localhost:3001/orders/" + orderId, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ orderStatus: "123" }),
-      });
-    } catch (e) {
-      console.log(e.message);
-    }
-  };
-
-  const submitOrderData = async () => {
-    await setData(`orders/${id}`, "");
-  };
 
   const getOrderData = async () => {
     try {
-      const data = await getData(`orders/${id}`);
+      const data = await getData(`orders/${resId}`);
 
       setOrderData(data.orders);
     } catch (error) {
@@ -67,18 +46,9 @@ export default function NestedList({ id }) {
   };
 
   const updateOrderStatus = async (orderId, orderStatus) => {
-    const tempOrderData = orderData.map((order) => {
-      if (order.orderId === orderId) {
-        order.orderStatus = orderStatus;
-      }
-      return order;
+    await setData(`updateOrderStatus/${resId}/${orderId}`, {
+      status: orderStatus,
     });
-    // tempOrderData = orderData;
-    console.log("tempOrderData");
-
-    const restaurantOrderData = { id: Number(id), orders: tempOrderData };
-    console.log(restaurantOrderData);
-    await setData(`orders/${id}`, restaurantOrderData);
     console.log("data sent");
     getOrderData();
   };
@@ -112,13 +82,13 @@ export default function NestedList({ id }) {
               background: "",
               mb: "4px",
             }}
-            onClick={() => handleClick(order.orderId)}
+            onClick={() => handleClick(order.id)}
           >
-            <ListItemText primary={order.orderId} />
-            {open === order.orderId ? <ExpandLess /> : <ExpandMore />}
+            <ListItemText primary={"Order No." + order.id} />
+            {open === order.id ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           {order.orderItems.map((itm) => (
-            <Collapse in={order.orderId === open} timeout="auto" unmountOnExit>
+            <Collapse in={order.id === open} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
                 <ListItem sx={{ pl: 4 }}>
                   <ListItemText primary={itm.name} />
@@ -129,7 +99,7 @@ export default function NestedList({ id }) {
               </List>
             </Collapse>
           ))}
-          <Collapse in={order.orderId === open} timeout="auto" unmountOnExit>
+          <Collapse in={order.id === open} timeout="auto" unmountOnExit>
             <List component="div" disablePadding>
               <ListItem
                 sx={{
@@ -150,7 +120,7 @@ export default function NestedList({ id }) {
                     value={order.orderStatus}
                     onChange={(e) => {
                       //e.target.value
-                      updateOrderStatus(order.orderId, e.target.value);
+                      updateOrderStatus(order.id, e.target.value);
                     }}
                   >
                     <FormControlLabel

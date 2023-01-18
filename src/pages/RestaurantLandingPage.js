@@ -12,7 +12,7 @@ const RestaurantLandingPage = () => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const { id } = useParams();
+  const { resId } = useParams();
   const Navigate = useNavigate();
 
   const validationSchema = yup.object({
@@ -48,7 +48,7 @@ const RestaurantLandingPage = () => {
     validationSchema: validationSchema,
     onSubmit: ({ orderId }) => {
       if (orderId !== "") {
-        checkOrderStatus(orderId, id);
+        checkOrderStatus(orderId, resId);
       }
     },
   });
@@ -68,7 +68,7 @@ const RestaurantLandingPage = () => {
         aria-describedby="modal-modal-description"
       >
         <Box>
-          <AdminLogin id={id} />
+          <AdminLogin id={resId} />
         </Box>
       </Modal>
       <Typography variant="h5">Enter Order ID</Typography>

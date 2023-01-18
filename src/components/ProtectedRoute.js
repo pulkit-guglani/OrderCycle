@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 const ProtectedRoute = ({ Component, pageType }) => {
-  const { id } = useParams();
+  const { resId } = useParams();
   const [cookieData, setCookieData] = useState("");
   const navigate = useNavigate();
 
@@ -15,12 +15,12 @@ const ProtectedRoute = ({ Component, pageType }) => {
   };
   useEffect(() => getCookie());
 
-  const validationText = pageType + id;
+  const validationText = pageType + resId;
   console.log(cookieData, validationText);
   if (cookieData == validationText) {
     return <Component />;
   } else {
-    navigate(`/restaurantLandingPage/${id}`);
+    navigate(`/restaurantLandingPage/${resId}`);
   }
 };
 

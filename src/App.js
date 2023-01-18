@@ -22,18 +22,18 @@ function App() {
           <Route path="/" element={<Restaurant />} />
           <Route path="/order/:resId/:id" element={<OrderStatus />} />
           <Route
-            path="/restaurantLandingPage/:id"
+            path="/restaurantLandingPage/:resId"
             element={<RestaurantLandingPage />}
           />
           <Route
-            path="/OperatorPage/:id"
+            path="/OperatorPage/:resId"
             element={
               <ProtectedRoute Component={OperatorPage} pageType="Operator" />
             }
           />
           <Route path="/login" element={<AdminLogin />} />
           <Route
-            path="/chefPage/:id"
+            path="/chefPage/:resId"
             element={<ProtectedRoute Component={ChefPage} pageType="Chef" />}
           />
           <Route path="*" element={<ErrorPage />} />

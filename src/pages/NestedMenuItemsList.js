@@ -57,23 +57,19 @@ export default function NestedList({ data, qty, setQty }) {
       aria-labelledby="nested-list-subheader"
       subheader={
         <ListSubheader component="div" id="nested-list-subheader">
-          Select Category
+          Select name
         </ListSubheader>
       }
     >
-      {data.map((item) => (
+      {data?.map((item) => (
         <>
-          <ListItemButton onClick={() => handleClick(item.category)}>
-            <ListItemText primary={item.category} />
-            {open === item.category ? <ExpandLess /> : <ExpandMore />}
+          <ListItemButton onClick={() => handleClick(item.name)}>
+            <ListItemText primary={item.name} />
+            {open === item.name ? <ExpandLess /> : <ExpandMore />}
           </ListItemButton>
           {item.items.map((itm) => {
             return (
-              <Collapse
-                in={item.category === open}
-                timeout="auto"
-                unmountOnExit
-              >
+              <Collapse in={item.name === open} timeout="auto" unmountOnExit>
                 <List component="div" disablePadding>
                   <ListItem sx={{ pl: 4 }}>
                     <ListItemText

@@ -12,6 +12,7 @@ import ItemsModal from "./ItemsModal";
 // import QR from "../static/QR.png";
 import { useParams } from "react-router-dom";
 import {
+  addData,
   getData,
   mapToJSON,
   setData as setServerData,
@@ -58,13 +59,12 @@ const OperatorPage = () => {
     setOpenOrderConfirmationModal(false);
 
   const [orderData, setOrderData] = useState(new Map());
-  const { id } = useParams();
+  const { resId } = useParams();
 
   const submitOrderData = async () => {
-    const restaurantOrdersData = await getData(`orders/${id}`);
-    restaurantOrdersData.orders.push(currentOrder);
-    setServerData(`orders/${id}`, restaurantOrdersData);
-    updateLatestOrderNumber();
+    await addData(`orders/${resId}`, currentOrder);
+    await getLatestOrderNumber();
+
     updateLocalOrders();
     setOpenOrderConfirmationModal(true);
   };
@@ -96,28 +96,20 @@ const OperatorPage = () => {
 
   const getMenuData = async () => {
     try {
-      const data = await getData(`menu/${id}`);
-      setMenuData(data.menuitems);
+      const data = await getData(`getMenu/${resId}`);
+      setMenuData(data);
     } catch (error) {
       console.log(error.message);
     }
   };
   const getLatestOrderNumber = async () => {
-    const response = await getData(`miscellaneousData/${id}`);
-    setCurrentOrderNumber(response.latestOrderNumber);
+    const orderNumber = await getData(`latestOrderNumber/${resId}`);
+    setCurrentOrderNumber(orderNumber);
   };
-  const updateLatestOrderNumber = async () => {
-    const orderNumber = currentOrderNumber + 1;
-    const latestOrderNumberObject = {
-      id: { id },
-      latestOrderNumber: orderNumber,
-    };
-    // console.log(latestOrderNumberObject);
-    setServerData(`miscellaneousData/${id}`, latestOrderNumberObject);
-  };
+
   const getOrderData = async () => {
-    const res = await getData(`orders/${id}`);
-    // console.log(res);
+    const res = await getData(`orders/${resId}`);
+    console.log(res);
     setRestaurantOrderData(res);
   };
   const updateLocalOrders = () => {
@@ -128,7 +120,6 @@ const OperatorPage = () => {
   useEffect(() => {
     getMenuData();
     getOrderData();
-    getLatestOrderNumber();
   }, []);
   return (
     <Box>
@@ -191,14 +182,15 @@ const OperatorPage = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-          }}>
+          }}
+        >
           <CustomModal>
             <Typography id="modal-modal-title" variant="h6" component="h2">
               Your Order Number Is: {currentOrderNumber}
             </Typography>
             <Typography>Scan QR code to track status online</Typography>
             <img
-              src={`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_URL}/order/${id}-${currentOrderNumber}`}
+              src={`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_URL}/order/${resId}-${currentOrderNumber}`}
               alt="qr"
               width={"65vw"}
             />
@@ -210,7 +202,8 @@ const OperatorPage = () => {
           xs={3}
           md={3}
           height={"90vh"}
-          style={{ borderLeft: "1px solid black" }}>
+          style={{ borderLeft: "1px solid black" }}
+        >
           <Box>
             <h2>Order Status</h2>
             <Box>
@@ -230,12 +223,14 @@ const OperatorPage = () => {
                         // key={row.orderID}
                         sx={{
                           "&:last-child td, &:last-child th": { border: 0 },
-                        }}>
+                        }}
+                      >
                         <TableCell
                           component="th"
                           scope="row"
-                          style={{ fontWeight: "bold" }}>
-                          {row.orderId}
+                          style={{ fontWeight: "bold" }}
+                        >
+                          {row.id}
                         </TableCell>
                         {/* For QR Code */}
                         {/* <TableCell align="right">{row.qr}</TableCell> */}

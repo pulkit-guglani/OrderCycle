@@ -21,6 +21,19 @@ export const setData = async (path, data) => {
     return error.message;
   }
 };
+export const addData = async (path, data) => {
+  try {
+    const res = await fetch(`${process.env.REACT_APP_URL}/${path}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+  } catch (error) {
+    return error.message;
+  }
+};
 
 export const mapToJSON = (map) => {
   let json = [];
