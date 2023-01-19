@@ -215,7 +215,7 @@ const OperatorPage = () => {
                     <TableRow>
                       <TableCell>Order ID</TableCell>
                       {/* For QR Code */}
-                      {/* <TableCell align="right">QR</TableCell>  */}
+                      <TableCell align="center">QR</TableCell>
                       <TableCell align="right">Status</TableCell>
                     </TableRow>
                   </TableHead>
@@ -235,7 +235,13 @@ const OperatorPage = () => {
                           {row.id}
                         </TableCell>
                         {/* For QR Code */}
-                        {/* <TableCell align="right">{row.qr}</TableCell> */}
+                        <TableCell align="center">
+                          <img
+                            src={`${process.env.REACT_APP_QR_API_URL}${process.env.REACT_APP_URL}/getOrderWithId/${resId}/${row.id}`}
+                            alt="qr"
+                            width={"65vw"}
+                          />
+                        </TableCell>
                         <TableCell align="right">{row.orderStatus}</TableCell>
                       </TableRow>
                     ))}
