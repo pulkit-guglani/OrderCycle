@@ -189,8 +189,10 @@ const OperatorPage = () => {
               Your Order Number Is: {currentOrderNumber}
             </Typography>
             <Typography>Scan QR code to track status online</Typography>
+            {console.log(`${process.env.REACT_APP_QR_API_URL}$
+            {process.env.REACT_APP_URL}/order/${resId}/${currentOrderNumber}`)}
             <img
-              src={`${process.env.REACT_APP_API_URL}${process.env.REACT_APP_URL}/order/${resId}-${currentOrderNumber}`}
+              src={`${process.env.REACT_APP_QR_API_URL}${process.env.REACT_APP_URL}/getOrderWithId/${resId}/${currentOrderNumber}`}
               alt="qr"
               width={"65vw"}
             />
