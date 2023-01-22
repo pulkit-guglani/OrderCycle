@@ -48,10 +48,11 @@ export default function NestedList({ resId }) {
   };
 
   const updateOrderStatus = async (orderId, orderStatus) => {
-    sendOrderAddedTrigger();
     await setData(`updateOrderStatus/${resId}/${orderId}`, {
       status: orderStatus,
     });
+    sendOrderAddedTrigger();
+
     console.log("data sent");
     getOrderData();
   };
