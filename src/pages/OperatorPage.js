@@ -17,6 +17,10 @@ import {
   mapToJSON,
   setData as setServerData,
 } from "../components/functions";
+import {
+  sendOrderAddedTrigger,
+  subscribeToNewOrders,
+} from "../sockets/socketsHandler";
 
 // Styled Components
 const OrderSummary = styled(Box)`
@@ -113,13 +117,15 @@ const OperatorPage = () => {
     setRestaurantOrderData(res);
   };
   const updateLocalOrders = () => {
-    setTimeout(() => getOrderData(), 5000);
+    sendOrderAddedTrigger();
+    setTimeout(() => getOrderData(), 2000);
     setCurrentOrder("");
     setTotalAmount(0);
   };
   useEffect(() => {
     getMenuData();
     getOrderData();
+    subscribeToNewOrders(getOrderData);
   }, []);
   return (
     <Box>

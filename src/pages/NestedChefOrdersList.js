@@ -1,4 +1,3 @@
-import ListSubheader from "@mui/material/ListSubheader";
 import List from "@mui/material/List";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItem from "@mui/material/ListItem";
@@ -7,10 +6,8 @@ import Collapse from "@mui/material/Collapse";
 import ExpandLess from "@mui/icons-material/ExpandLess";
 import ExpandMore from "@mui/icons-material/ExpandMore";
 import {
-  Button,
   FormControl,
   FormControlLabel,
-  FormLabel,
   Radio,
   RadioGroup,
   Typography,
@@ -18,6 +15,10 @@ import {
 } from "@mui/material";
 import { useEffect, useState } from "react";
 import { getData, setData } from "../components/functions";
+import {
+  sendOrderAddedTrigger,
+  subscribeToNewOrders,
+} from "../sockets/socketsHandler";
 
 export default function NestedList({ resId }) {
   const [open, setOpen] = useState("");
@@ -35,6 +36,7 @@ export default function NestedList({ resId }) {
 
   useEffect(() => {
     getOrderData();
+    subscribeToNewOrders(getOrderData);
   }, []);
 
   const handleClick = (e) => {
@@ -46,6 +48,7 @@ export default function NestedList({ resId }) {
   };
 
   const updateOrderStatus = async (orderId, orderStatus) => {
+    sendOrderAddedTrigger();
     await setData(`updateOrderStatus/${resId}/${orderId}`, {
       status: orderStatus,
     });

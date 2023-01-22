@@ -12,8 +12,10 @@ import ErrorPage from "./pages/ErrorPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { themeOptions } from "./components/Theme";
 import { ThemeProvider } from "@mui/material";
+import { connectToIOServer } from "./sockets/socketsHandler";
 
 function App() {
+  connectToIOServer();
   return (
     <BrowserRouter>
       <ThemeProvider theme={themeOptions}>
