@@ -6,6 +6,7 @@ import Typography from "@mui/material/Typography";
 import DropDownBox from "./DropdownBox";
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router";
+import CustomizedSnackbars from "./SnackBar";
 
 const style = {
   display: "flex",
@@ -27,6 +28,7 @@ const style = {
 
 export default function AdminLogin({ id }) {
   const [adminType, setAdminType] = useState("");
+  const [isAuthenticating, setIsAuthenticating] =useState(false)
   const passRef = useRef();
   const navigate = useNavigate();
 
@@ -41,6 +43,7 @@ export default function AdminLogin({ id }) {
   };
 
   const authHandler = async () => {
+    setIsAuthenticating(true)
     const isAuthenticated = await authenticate();
     console.log(isAuthenticated);
     if (adminType.name == "Chef" && isAuthenticated) {
@@ -48,6 +51,10 @@ export default function AdminLogin({ id }) {
     } else if (adminType.name == "Operator" && isAuthenticated) {
       goToOperator();
     }
+    if(!isAuthenticated){
+      
+    }
+    setIsAuthenticating(false)
   };
   const goToChef = () => {
     console.log("In Chef");
@@ -63,6 +70,7 @@ export default function AdminLogin({ id }) {
     document.cookie = `ordercycle.in=Operator${id}; SameSite=None; Secure;expires = ${exp}`;
   };
   return (
+    <>
     <Box style={style}>
       <Typography id="modal-modal-title" variant="h5" component="h5">
         Admin Login
@@ -83,10 +91,13 @@ export default function AdminLogin({ id }) {
         color="primary"
         variant="contained"
         type="submit"
+        disabled = {isAuthenticating}
         onClick={authHandler}
       >
         Submit
       </Button>
     </Box>
+      <CustomizedSnackbars/>
+      </>
   );
 }

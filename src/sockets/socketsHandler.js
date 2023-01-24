@@ -1,6 +1,6 @@
 import io from "socket.io-client";
 
-let socket = io("http://localhost:5001/api");
+let socket = io(process.env.REACT_APP_URL);
 let newOrdersSubscribers = [];
 export const connectToIOServer = async () => {
   // socket = io("http://localhost:5001/api");

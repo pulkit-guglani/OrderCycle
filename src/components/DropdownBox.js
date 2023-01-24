@@ -8,7 +8,6 @@ const DropDownBox = ({
   value,
   setValue,
 }) => {
-  console.log(data);
   return (
     <Autocomplete
       disablePortal
