@@ -6,7 +6,7 @@ import Typography from "@mui/material/Typography";
 import DropDownBox from "./DropdownBox";
 import { TextField } from "@mui/material";
 import { useNavigate } from "react-router";
-import CustomizedSnackbars from "./SnackBar";
+import { useAppContext } from "./ContextProvider";
 
 const style = {
   display: "flex",
@@ -28,9 +28,10 @@ const style = {
 
 export default function AdminLogin({ id }) {
   const [adminType, setAdminType] = useState("");
-  const [isAuthenticating, setIsAuthenticating] =useState(false)
+  const [isAuthenticating, setIsAuthenticating] = useState(false);
   const passRef = useRef();
   const navigate = useNavigate();
+  const { setAlertState } = useAppContext();
 
   const authenticate = async () => {
     console.log(adminType);
@@ -43,7 +44,7 @@ export default function AdminLogin({ id }) {
   };
 
   const authHandler = async () => {
-    setIsAuthenticating(true)
+    setIsAuthenticating(true);
     const isAuthenticated = await authenticate();
     console.log(isAuthenticated);
     if (adminType.name == "Chef" && isAuthenticated) {
@@ -51,10 +52,16 @@ export default function AdminLogin({ id }) {
     } else if (adminType.name == "Operator" && isAuthenticated) {
       goToOperator();
     }
-    if(!isAuthenticated){
-      
+    if (!isAuthenticated) {
+      // showAlert({ severity: "error", text: "Invalid Password" });
+      // const {isAlertVisible, setIsAlertVisible } = useAppContext();
+      setAlertState({
+        severity: "error",
+        message: "Invalid Password",
+        isVisible: true,
+      });
     }
-    setIsAuthenticating(false)
+    setIsAuthenticating(false);
   };
   const goToChef = () => {
     console.log("In Chef");
@@ -71,33 +78,32 @@ export default function AdminLogin({ id }) {
   };
   return (
     <>
-    <Box style={style}>
-      <Typography id="modal-modal-title" variant="h5" component="h5">
-        Admin Login
-      </Typography>
-      <DropDownBox
-        data={[{ name: "Chef" }, { name: "Operator" }]}
-        label="Chef/Operator"
-        value={adminType}
-        setValue={setAdminType}
-      />
-      <TextField
-        label="Password"
-        type={"password"}
-        sx={{ width: "300px" }}
-        inputRef={passRef}
-      ></TextField>
-      <Button
-        color="primary"
-        variant="contained"
-        type="submit"
-        disabled = {isAuthenticating}
-        onClick={authHandler}
-      >
-        Submit
-      </Button>
-    </Box>
-      <CustomizedSnackbars/>
-      </>
+      <Box style={style}>
+        <Typography id="modal-modal-title" variant="h5" component="h5">
+          Admin Login
+        </Typography>
+        <DropDownBox
+          data={[{ name: "Chef" }, { name: "Operator" }]}
+          label="Chef/Operator"
+          value={adminType}
+          setValue={setAdminType}
+        />
+        <TextField
+          label="Password"
+          type={"password"}
+          sx={{ width: "300px" }}
+          inputRef={passRef}
+        ></TextField>
+        <Button
+          color="primary"
+          variant="contained"
+          type="submit"
+          disabled={isAuthenticating}
+          onClick={authHandler}
+        >
+          Submit
+        </Button>
+      </Box>
+    </>
   );
 }

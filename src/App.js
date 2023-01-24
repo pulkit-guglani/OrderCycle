@@ -13,36 +13,39 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import { themeOptions } from "./components/Theme";
 import { ThemeProvider } from "@mui/material";
 import { connectToIOServer } from "./sockets/socketsHandler";
+import ContextProvider from "./components/ContextProvider";
 
 function App() {
   connectToIOServer();
   return (
-    <BrowserRouter>
-      <ThemeProvider theme={themeOptions}>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Restaurant />} />
-          <Route path="/order/:resId/:id" element={<OrderStatus />} />
-          <Route
-            path="/restaurantLandingPage/:resId"
-            element={<RestaurantLandingPage />}
-          />
-          <Route
-            path="/OperatorPage/:resId"
-            element={
-              <ProtectedRoute Component={OperatorPage} pageType="Operator" />
-            }
-          />
-          <Route path="/login" element={<AdminLogin />} />
-          <Route
-            path="/chefPage/:resId"
-            element={<ProtectedRoute Component={ChefPage} pageType="Chef" />}
-          />
-          <Route path="*" element={<ErrorPage />} />
-        </Routes>
-      </ThemeProvider>
-      {/* <Footer/> */}
-    </BrowserRouter>
+    <ContextProvider>
+      <BrowserRouter>
+        <ThemeProvider theme={themeOptions}>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Restaurant />} />
+            <Route path="/order/:resId/:id" element={<OrderStatus />} />
+            <Route
+              path="/restaurantLandingPage/:resId"
+              element={<RestaurantLandingPage />}
+            />
+            <Route
+              path="/OperatorPage/:resId"
+              element={
+                <ProtectedRoute Component={OperatorPage} pageType="Operator" />
+              }
+            />
+            <Route path="/login" element={<AdminLogin />} />
+            <Route
+              path="/chefPage/:resId"
+              element={<ProtectedRoute Component={ChefPage} pageType="Chef" />}
+            />
+            <Route path="*" element={<ErrorPage />} />
+          </Routes>
+        </ThemeProvider>
+        {/* <Footer/> */}
+      </BrowserRouter>
+    </ContextProvider>
   );
 }
 
